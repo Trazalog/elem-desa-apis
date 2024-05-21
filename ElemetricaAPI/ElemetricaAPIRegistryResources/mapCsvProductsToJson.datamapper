@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<datamapper:DataMapperRoot xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:datamapper="http:///org/wso2/developerstudio/eclipse/gmf/datamapper">
+  <input>
+    <treeNode name="root" level="1">
+      <node name="Nombre Local" schemaDataType="STRING" level="2">
+        <properties key="type" value="string"/>
+        <properties key="id" value="http://wso2jsonschema.org/0/Nombre Local"/>
+        <properties key="nullable" value="false"/>
+        <outNode>
+          <outgoingLink inNode="//@output/@treeNode.0/@node.0/@node.0/@inNode"/>
+        </outNode>
+        <inNode/>
+      </node>
+      <node name="Código Interno" schemaDataType="STRING" level="2">
+        <properties key="type" value="string"/>
+        <properties key="id" value="http://wso2jsonschema.org/0/Código Interno"/>
+        <properties key="nullable" value="false"/>
+        <outNode>
+          <outgoingLink inNode="//@output/@treeNode.0/@node.0/@node.1/@node.0/@inNode"/>
+        </outNode>
+        <inNode/>
+      </node>
+      <node name="Descripción de la Categoría" schemaDataType="STRING" level="2">
+        <properties key="type" value="string"/>
+        <properties key="id" value="http://wso2jsonschema.org/0/Descripción de la Categoría"/>
+        <properties key="nullable" value="false"/>
+        <outNode/>
+        <inNode/>
+      </node>
+      <node name="Descripción del Producto" schemaDataType="STRING" level="2">
+        <properties key="type" value="string"/>
+        <properties key="id" value="http://wso2jsonschema.org/0/Descripción del Producto"/>
+        <properties key="nullable" value="false"/>
+        <outNode>
+          <outgoingLink inNode="//@output/@treeNode.0/@node.0/@node.1/@node.1/@inNode"/>
+        </outNode>
+        <inNode/>
+      </node>
+      <node name="Unidades Vendidas" schemaDataType="STRING" level="2">
+        <properties key="type" value="string"/>
+        <properties key="id" value="http://wso2jsonschema.org/0/Unidades Vendidas"/>
+        <properties key="nullable" value="false"/>
+        <outNode/>
+        <inNode/>
+      </node>
+      <node name="Facturas" schemaDataType="STRING" level="2">
+        <properties key="type" value="string"/>
+        <properties key="id" value="http://wso2jsonschema.org/0/Facturas"/>
+        <properties key="nullable" value="false"/>
+        <outNode/>
+        <inNode/>
+      </node>
+      <node name="Presencia" schemaDataType="STRING" level="2">
+        <properties key="type" value="string"/>
+        <properties key="id" value="http://wso2jsonschema.org/0/Presencia"/>
+        <properties key="nullable" value="false"/>
+        <outNode/>
+        <inNode/>
+      </node>
+      <node name="Subtotal del Producto" schemaDataType="STRING" level="2">
+        <properties key="type" value="string"/>
+        <properties key="id" value="http://wso2jsonschema.org/0/Subtotal del Producto"/>
+        <properties key="nullable" value="false"/>
+        <outNode/>
+        <inNode/>
+      </node>
+      <node name="Impuesto del Producto" schemaDataType="STRING" level="2">
+        <properties key="type" value="string"/>
+        <properties key="id" value="http://wso2jsonschema.org/0/Impuesto del Producto"/>
+        <properties key="nullable" value="false"/>
+        <outNode/>
+        <inNode/>
+      </node>
+      <node name="Descuento del Producto" schemaDataType="STRING" level="2">
+        <properties key="type" value="string"/>
+        <properties key="id" value="http://wso2jsonschema.org/0/Descuento del Producto"/>
+        <properties key="nullable" value="false"/>
+        <outNode/>
+        <inNode/>
+      </node>
+      <node name="Total del Producto" schemaDataType="STRING" level="2">
+        <properties key="type" value="string"/>
+        <properties key="id" value="http://wso2jsonschema.org/0/Total del Producto"/>
+        <properties key="nullable" value="false"/>
+        <outNode/>
+        <inNode/>
+      </node>
+      <properties key="type" value="array"/>
+      <properties key="$schema" value="http://wso2.org/json-schema/wso2-data-mapper-v5.0.0/schema#"/>
+      <properties key="id" value="http://wso2jsonschema.org"/>
+      <properties key="items_id" value="http://wso2jsonschema.org/0"/>
+      <properties key="items_type" value="object"/>
+      <properties key="nullable" value="false"/>
+      <outNode/>
+      <inNode/>
+    </treeNode>
+  </input>
+  <output>
+    <treeNode name="root" schemaDataType="OBJECT" level="1">
+      <node name="reports" level="2">
+        <node name="storeName" schemaDataType="STRING" level="3">
+          <properties key="type" value="string"/>
+          <properties key="id" value="http://wso2jsonschema.org/reports/0/storeName"/>
+          <properties key="nullable" value="false"/>
+          <outNode/>
+          <inNode incomingLink="//@input/@treeNode.0/@node.0/@outNode/@outgoingLink.0"/>
+        </node>
+        <node name="summaryProducts" schemaDataType="OBJECT" level="3">
+          <node name="productCode" schemaDataType="STRING" level="4">
+            <properties key="type" value="string"/>
+            <properties key="id" value="http://wso2jsonschema.org/reports/0/summaryProducts/productCode"/>
+            <properties key="nullable" value="false"/>
+            <outNode/>
+            <inNode incomingLink="//@input/@treeNode.0/@node.1/@outNode/@outgoingLink.0"/>
+          </node>
+          <node name="productDescription" schemaDataType="STRING" level="4">
+            <properties key="type" value="string"/>
+            <properties key="id" value="http://wso2jsonschema.org/reports/0/summaryProducts/productDescription"/>
+            <properties key="nullable" value="false"/>
+            <outNode/>
+            <inNode incomingLink="//@input/@treeNode.0/@node.3/@outNode/@outgoingLink.0"/>
+          </node>
+          <node name="quantityInvoices" schemaDataType="NUMBER" level="4">
+            <properties key="type" value="number"/>
+            <properties key="id" value="http://wso2jsonschema.org/reports/0/summaryProducts/quantityInvoices"/>
+            <properties key="nullable" value="false"/>
+            <outNode/>
+            <inNode/>
+          </node>
+          <node name="category" schemaDataType="STRING" level="4">
+            <properties key="type" value="string"/>
+            <properties key="id" value="http://wso2jsonschema.org/reports/0/summaryProducts/category"/>
+            <properties key="nullable" value="false"/>
+            <outNode/>
+            <inNode/>
+          </node>
+          <node name="proportionProductInvoice" schemaDataType="NUMBER" level="4">
+            <properties key="type" value="number"/>
+            <properties key="id" value="http://wso2jsonschema.org/reports/0/summaryProducts/proportionProductInvoice"/>
+            <properties key="nullable" value="false"/>
+            <outNode/>
+            <inNode/>
+          </node>
+          <node name="subtotalProduct" schemaDataType="NUMBER" level="4">
+            <properties key="type" value="number"/>
+            <properties key="id" value="http://wso2jsonschema.org/reports/0/summaryProducts/subtotalProduct"/>
+            <properties key="nullable" value="false"/>
+            <outNode/>
+            <inNode/>
+          </node>
+          <node name="discountProduct" schemaDataType="NUMBER" level="4">
+            <properties key="type" value="number"/>
+            <properties key="id" value="http://wso2jsonschema.org/reports/0/summaryProducts/discountProduct"/>
+            <properties key="nullable" value="false"/>
+            <outNode/>
+            <inNode/>
+          </node>
+          <node name="taxProduct" schemaDataType="NUMBER" level="4">
+            <properties key="type" value="number"/>
+            <properties key="id" value="http://wso2jsonschema.org/reports/0/summaryProducts/taxProduct"/>
+            <properties key="nullable" value="false"/>
+            <outNode/>
+            <inNode/>
+          </node>
+          <node name="totalProduct" schemaDataType="NUMBER" level="4">
+            <properties key="type" value="number"/>
+            <properties key="id" value="http://wso2jsonschema.org/reports/0/summaryProducts/totalProduct"/>
+            <properties key="nullable" value="false"/>
+            <outNode/>
+            <inNode/>
+          </node>
+          <node name="unitProduct" schemaDataType="NUMBER" level="4">
+            <properties key="type" value="number"/>
+            <properties key="id" value="http://wso2jsonschema.org/reports/0/summaryProducts/unitProduct"/>
+            <properties key="nullable" value="false"/>
+            <outNode/>
+            <inNode/>
+          </node>
+          <properties key="type" value="object"/>
+          <properties key="id" value="http://wso2jsonschema.org/reports/0/summaryProducts"/>
+          <properties key="nullable" value="false"/>
+          <properties key="properties_id" value="{productCode={id=http://wso2jsonschema.org/reports/0/summaryProducts/productCode, type=string}, productDescription={id=http://wso2jsonschema.org/reports/0/summaryProducts/productDescription, type=string}, quantityInvoices={id=http://wso2jsonschema.org/reports/0/summaryProducts/quantityInvoices, type=number}, category={id=http://wso2jsonschema.org/reports/0/summaryProducts/category, type=string}, proportionProductInvoice={id=http://wso2jsonschema.org/reports/0/summaryProducts/proportionProductInvoice, type=number}, subtotalProduct={id=http://wso2jsonschema.org/reports/0/summaryProducts/subtotalProduct, type=number}, discountProduct={id=http://wso2jsonschema.org/reports/0/summaryProducts/discountProduct, type=number}, taxProduct={id=http://wso2jsonschema.org/reports/0/summaryProducts/taxProduct, type=number}, totalProduct={id=http://wso2jsonschema.org/reports/0/summaryProducts/totalProduct, type=number}, unitProduct={id=http://wso2jsonschema.org/reports/0/summaryProducts/unitProduct, type=number}}"/>
+          <outNode/>
+          <inNode/>
+        </node>
+        <properties key="type" value="array"/>
+        <properties key="id" value="http://wso2jsonschema.org/reports"/>
+        <properties key="items_id" value="http://wso2jsonschema.org/reports/0"/>
+        <properties key="items_type" value="object"/>
+        <properties key="nullable" value="false"/>
+        <properties key="properties_id" value="{storeName={id=http://wso2jsonschema.org/reports/0/storeName, type=string}, summaryProducts={id=http://wso2jsonschema.org/reports/0/summaryProducts, type=object, properties={productCode={id=http://wso2jsonschema.org/reports/0/summaryProducts/productCode, type=string}, productDescription={id=http://wso2jsonschema.org/reports/0/summaryProducts/productDescription, type=string}, quantityInvoices={id=http://wso2jsonschema.org/reports/0/summaryProducts/quantityInvoices, type=number}, category={id=http://wso2jsonschema.org/reports/0/summaryProducts/category, type=string}, proportionProductInvoice={id=http://wso2jsonschema.org/reports/0/summaryProducts/proportionProductInvoice, type=number}, subtotalProduct={id=http://wso2jsonschema.org/reports/0/summaryProducts/subtotalProduct, type=number}, discountProduct={id=http://wso2jsonschema.org/reports/0/summaryProducts/discountProduct, type=number}, taxProduct={id=http://wso2jsonschema.org/reports/0/summaryProducts/taxProduct, type=number}, totalProduct={id=http://wso2jsonschema.org/reports/0/summaryProducts/totalProduct, type=number}, unitProduct={id=http://wso2jsonschema.org/reports/0/summaryProducts/unitProduct, type=number}}}}"/>
+        <outNode/>
+        <inNode/>
+      </node>
+      <properties key="type" value="object"/>
+      <properties key="$schema" value="http://wso2.org/json-schema/wso2-data-mapper-v5.0.0/schema#"/>
+      <properties key="id" value="http://wso2jsonschema.org"/>
+      <properties key="nullable" value="false"/>
+      <outNode/>
+      <inNode/>
+    </treeNode>
+  </output>
+</datamapper:DataMapperRoot>

@@ -4,9 +4,14 @@ info:
   description: API Definition of ReportParseAPI
   version: 1.0.0
 servers:
-- url: http://localhost:8290/invoice
+- url: http://localhost:8290/reports
 paths:
-  /details:
+  /invoiceDetails:
+    get:
+      responses:
+        default:
+          description: Default response
+  /productsSummary:
     get:
       responses:
         default:

@@ -1,0 +1,24 @@
+map_S_root_S_root = function(){ 
+var outputroot={};
+
+var count_i_inputroot_4fcb4b5a_a2bc_43de_a363_36072de1870c = 0;
+outputroot =  {};
+outputroot.reports =  [];
+
+for(i_inputroot_4fcb4b5a_a2bc_43de_a363_36072de1870c in inputroot){
+outputroot.reports[count_i_inputroot_4fcb4b5a_a2bc_43de_a363_36072de1870c] =  {};
+outputroot.reports[count_i_inputroot_4fcb4b5a_a2bc_43de_a363_36072de1870c].storeName = inputroot[i_inputroot_4fcb4b5a_a2bc_43de_a363_36072de1870c]['Nombre Local'];
+outputroot.reports[count_i_inputroot_4fcb4b5a_a2bc_43de_a363_36072de1870c].summaryProducts =  {};
+outputroot.reports[count_i_inputroot_4fcb4b5a_a2bc_43de_a363_36072de1870c].summaryProducts.productCode = inputroot[i_inputroot_4fcb4b5a_a2bc_43de_a363_36072de1870c]['Código Interno'];
+outputroot.reports[count_i_inputroot_4fcb4b5a_a2bc_43de_a363_36072de1870c].summaryProducts.productDescription = inputroot[i_inputroot_4fcb4b5a_a2bc_43de_a363_36072de1870c]['Descripción del Producto'];
+
+count_i_inputroot_4fcb4b5a_a2bc_43de_a363_36072de1870c++;
+}
+return outputroot;
+};
+
+
+
+
+
+
