@@ -63,4 +63,12 @@
             <properties/>
         </item>
     </artifact>
+    <artifact name="mapCsvToJson_js" groupId="com.example.resource" version="1.0.0" type="registry/resource" serverRole="EnterpriseIntegrator">
+        <item>
+            <file>mapCsvToJson.js</file>
+            <path>/_system/config/custom</path>
+            <mediaType>application/javascript</mediaType>
+            <properties/>
+        </item>
+    </artifact>
 </artifacts>

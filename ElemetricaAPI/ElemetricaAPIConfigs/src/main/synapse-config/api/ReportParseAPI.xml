@@ -58,26 +58,16 @@
                 </endpoint>
             </call>
             <log level="custom">
-                <property name="Paso 3" value="Remover las primeras 4 lineas del reporte"/>
-                <property name="Donde" value="Script mediator que removera titulo e intervalo del reporte"/>
+                <property name="Paso 3" value="Sanitizar csv y mapear data a JSON"/>
+                <property name="Donde" value="Script mediator que mapeara la data a JSON"/>
             </log>
-            <script language="js"><![CDATA[var log = mc.getServiceLog();
-			        var payload = mc.getPayloadXML();
-			        var lines = payload.split('\n');
-			        lines.splice(0, 4);// remove 4 first lines because of title and blanks
-			        var newPayload = lines.join('\n');
-			        mc.setProperty('newPayload',newPayload);]]></script>
-            <payloadFactory description="updatePayload" media-type="text">
+            <script function="mapCsvToJson" key="conf:custom/mapCsvToJson.js" language="js"/>
+            <payloadFactory description="updatePayload" media-type="json">
                 <format>$1</format>
                 <args>
                     <arg evaluator="xml" expression="$ctx:newPayload"/>
                 </args>
             </payloadFactory>
-            <log level="custom">
-                <property name="Paso 4" value="Mapeo la data del CSV a JSON"/>
-                <property name="Donde" value="Datamapper mediator que realizara la transformacion"/>
-            </log>
-            <datamapper config="gov:datamapper/mapCsvToJson.dmc" description="MapeoData" inputSchema="gov:datamapper/mapCsvToJson_inputSchema.json" inputType="CSV" outputSchema="gov:datamapper/mapCsvToJson_outputSchema.json" outputType="JSON" xsltStyleSheet="gov:datamapper/mapCsvToJson_xsltStyleSheet.xml"/>
             <log level="custom">
                 <property name="Paso final" value="Respondo con el JSON listo"/>
             </log>
