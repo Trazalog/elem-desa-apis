@@ -4,7 +4,7 @@ function mapCsvToJson(mc) {
     var payload = mc.getPayloadXML();
     var lines = payload.split("\n");
     lines.splice(0, 3); // corto las primeras 3 lineas del CSV, que no son datos
-    var headers = lines[0].split(","); // guardo la primera linea del CSV, que son los headers
+    var headers = lines[0].split(",");// guardo la primera linea del CSV, que son los headers
     var stores = {};
     // iterate over the CSV data
     for (var i = 1; i < lines.length; i++) {
@@ -14,22 +14,19 @@ function mapCsvToJson(mc) {
       if (!stores[storeName]) {
         stores[storeName] = {
           storeName: data[headers.indexOf("Nombre Local")],
-          productsEvolution: [],
+          categoriesEvolution: [],
         };
       }
-      stores[storeName].productsEvolution.push({
-        productCode: data[headers.indexOf("Código Interno")],
-        productDescription: data[headers.indexOf("Descripción del Producto")],
+      stores[storeName].categoriesEvolution.push({
+        categoryDetail: data[headers.indexOf("Detalle de la Categoría")].replace(/"/g, ''),
         invoicesQuantity : data[headers.indexOf("Facturas")],
         presence: data[headers.indexOf("Presencia")], 
-        subtotal: data[headers.indexOf("Subtotal del Producto")], 
-        discount: data[headers.indexOf("Descuento del Producto")], 
-        taxes: data[headers.indexOf("Impuesto del Producto")],
-        total: data[headers.indexOf("Total del Producto")],
+        subtotal: data[headers.indexOf("Subtotal de la Categoría")], 
+        discount: data[headers.indexOf("Descuento de la Categoría")], 
+        taxes: data[headers.indexOf("Impuesto de la Categoría")],
+        total: data[headers.indexOf("Total de la Categoría")],
         unitsSold: data[headers.indexOf("Unidades Vendidas")],
-        month: data[headers.indexOf("Mes")],
-        year: data[headers.indexOf("Año")],        
-        dateRange: data[headers.indexOf("Período Comprendido")], 
+        dayOfYear: data[headers.indexOf("Día del año")], 
       });
     }
     var json = {};

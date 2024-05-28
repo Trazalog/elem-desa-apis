@@ -26,3 +26,8 @@ paths:
       responses:
         default:
           description: Default response
+  /evolutionByCategory:
+    get:
+      responses:
+        default:
+          description: Default response

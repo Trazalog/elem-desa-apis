@@ -14,6 +14,7 @@
   <name>ElemetricaAPICompositeExporter</name>
   <description>ElemetricaAPICompositeExporter</description>
   <properties>
+    <com.example.resource_._evolutionByCategoryMapCsvToJson_js>capp/EnterpriseIntegrator</com.example.resource_._evolutionByCategoryMapCsvToJson_js>
     <com.example.resource_._summaryPerCategoriesMapCsvToJson_js>capp/EnterpriseIntegrator</com.example.resource_._summaryPerCategoriesMapCsvToJson_js>
     <com.example.resource_._mapCsvProductsToJson>capp/EnterpriseServiceBus</com.example.resource_._mapCsvProductsToJson>
     <com.example.resource_._mapCsvToJson_outputSchema>capp/EnterpriseServiceBus</com.example.resource_._mapCsvToJson_outputSchema>
@@ -32,6 +33,12 @@
     <com.example.resource_._mapCsvToJson_js>capp/EnterpriseIntegrator</com.example.resource_._mapCsvToJson_js>
   </properties>
   <dependencies>
+    <dependency>
+      <groupId>com.example.resource</groupId>
+      <artifactId>evolutionByCategoryMapCsvToJson_js</artifactId>
+      <version>1.0.0</version>
+      <type>zip</type>
+    </dependency>
     <dependency>
       <groupId>com.example.resource</groupId>
       <artifactId>summaryPerCategoriesMapCsvToJson_js</artifactId>
