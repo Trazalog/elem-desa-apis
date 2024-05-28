@@ -22,6 +22,7 @@
     <com.example.resource_._mapCsvProductsToJson_xsltStyleSheet>capp/EnterpriseServiceBus</com.example.resource_._mapCsvProductsToJson_xsltStyleSheet>
     <com.example.api_._ReportParseAPI>capp/EnterpriseServiceBus</com.example.api_._ReportParseAPI>
     <com.example.resource_._mapCsvToJson>capp/EnterpriseServiceBus</com.example.resource_._mapCsvToJson>
+    <com.example.resource_._evolutionByProductMapCsvToJson_js>capp/EnterpriseIntegrator</com.example.resource_._evolutionByProductMapCsvToJson_js>
     <com.example.resource_._mapCsvProductsToJson_inputSchema>capp/EnterpriseServiceBus</com.example.resource_._mapCsvProductsToJson_inputSchema>
     <com.example.resource_._mapCsvProductsToJson_outputSchema>capp/EnterpriseServiceBus</com.example.resource_._mapCsvProductsToJson_outputSchema>
     <com.example.resource_._summaryPerCategoriesMapCsvToJson.js>capp/EnterpriseIntegrator</com.example.resource_._summaryPerCategoriesMapCsvToJson.js>
@@ -76,6 +77,12 @@
     <dependency>
       <groupId>com.example.resource</groupId>
       <artifactId>mapCsvToJson</artifactId>
+      <version>1.0.0</version>
+      <type>zip</type>
+    </dependency>
+    <dependency>
+      <groupId>com.example.resource</groupId>
+      <artifactId>evolutionByProductMapCsvToJson_js</artifactId>
       <version>1.0.0</version>
       <type>zip</type>
     </dependency>

@@ -21,3 +21,8 @@ paths:
       responses:
         default:
           description: Default response
+  /evolutionByProduct:
+    get:
+      responses:
+        default:
+          description: Default response
