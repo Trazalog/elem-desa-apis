@@ -1,71 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?><artifacts>
-    <artifact name="mapCsvToJson" groupId="com.example.resource" version="1.0.0" type="registry/resource" serverRole="EnterpriseServiceBus">
-        <item>
-            <file>mapCsvToJson.dmc</file>
-            <path>/_system/governance/datamapper</path>
-            <mediaType>text/plain</mediaType>
-            <properties/>
-        </item>
-    </artifact>
-    <artifact name="mapCsvToJson_inputSchema" groupId="com.example.resource" version="1.0.0" type="registry/resource" serverRole="EnterpriseServiceBus">
-        <item>
-            <file>mapCsvToJson_inputSchema.json</file>
-            <path>/_system/governance/datamapper</path>
-            <mediaType>text/plain</mediaType>
-            <properties/>
-        </item>
-    </artifact>
-    <artifact name="mapCsvToJson_outputSchema" groupId="com.example.resource" version="1.0.0" type="registry/resource" serverRole="EnterpriseServiceBus">
-        <item>
-            <file>mapCsvToJson_outputSchema.json</file>
-            <path>/_system/governance/datamapper</path>
-            <mediaType>text/plain</mediaType>
-            <properties/>
-        </item>
-    </artifact>
-    <artifact name="mapCsvToJson_xsltStyleSheet" groupId="com.example.resource" version="1.0.0" type="registry/resource" serverRole="EnterpriseServiceBus">
-        <item>
-            <file>mapCsvToJson_xsltStyleSheet.xml</file>
-            <path>/_system/governance/datamapper</path>
-            <mediaType>text/plain</mediaType>
-            <properties/>
-        </item>
-    </artifact>
-    <artifact name="mapCsvProductsToJson" groupId="com.example.resource" version="1.0.0" type="registry/resource" serverRole="EnterpriseServiceBus">
-        <item>
-            <file>mapCsvProductsToJson.dmc</file>
-            <path>/_system/governance/datamapper</path>
-            <mediaType>text/plain</mediaType>
-            <properties/>
-        </item>
-    </artifact>
-    <artifact name="mapCsvProductsToJson_inputSchema" groupId="com.example.resource" version="1.0.0" type="registry/resource" serverRole="EnterpriseServiceBus">
-        <item>
-            <file>mapCsvProductsToJson_inputSchema.json</file>
-            <path>/_system/governance/datamapper</path>
-            <mediaType>text/plain</mediaType>
-            <properties/>
-        </item>
-    </artifact>
-    <artifact name="mapCsvProductsToJson_outputSchema" groupId="com.example.resource" version="1.0.0" type="registry/resource" serverRole="EnterpriseServiceBus">
-        <item>
-            <file>mapCsvProductsToJson_outputSchema.json</file>
-            <path>/_system/governance/datamapper</path>
-            <mediaType>text/plain</mediaType>
-            <properties/>
-        </item>
-    </artifact>
-    <artifact name="mapCsvProductsToJson_xsltStyleSheet" groupId="com.example.resource" version="1.0.0" type="registry/resource" serverRole="EnterpriseServiceBus">
-        <item>
-            <file>mapCsvProductsToJson_xsltStyleSheet.xml</file>
-            <path>/_system/governance/datamapper</path>
-            <mediaType>text/plain</mediaType>
-            <properties/>
-        </item>
-    </artifact>
     <artifact name="mapCsvToJson_js" groupId="com.example.resource" version="1.0.0" type="registry/resource" serverRole="EnterpriseIntegrator">
         <item>
             <file>mapCsvToJson.js</file>
+            <path>/_system/config/custom</path>
+            <mediaType>application/javascript</mediaType>
+            <properties/>
+        </item>
+    </artifact>
+    <artifact name="summaryPerProductsMapCsvToJson_js" groupId="com.example.resource" version="1.0.0" type="registry/resource" serverRole="EnterpriseIntegrator">
+        <item>
+            <file>summaryPerProductsMapCsvToJson.js</file>
             <path>/_system/config/custom</path>
             <mediaType>application/javascript</mediaType>
             <properties/>

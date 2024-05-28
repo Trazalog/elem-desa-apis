@@ -9,7 +9,7 @@ function mapCsvToJson(mc) {
 
     // iterate over the CSV data
     for (var i = 1; i < lines.length; i++) {
-      var data = lines[i].split(","); // split the CSV row into data
+      var data = lines[i].split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/); // split the CSV row into data
       var invoiceId = data[headers.indexOf("ID Factura Local")];
 
       // create a new object for each row, with the desired structure
@@ -25,7 +25,7 @@ function mapCsvToJson(mc) {
           clientId: data[headers.indexOf("Cédula del Cliente")],
           diners: data[headers.indexOf("Comensales")],
           othersTags: {
-            Tipoorden: data[headers.indexOf("Tipoorden")],
+            Tipoorden: data[headers.indexOf("Tipoorden")].replace(/"/g, ''),
           },
           waiterTags: {
             Mesonero: data[headers.indexOf("Mesonero")],
@@ -38,7 +38,7 @@ function mapCsvToJson(mc) {
       invoices[invoiceId].invoiceDetails.push({
         productCode: data[headers.indexOf("Código Interno del Producto")],
         productDescription: data[headers.indexOf("Descripción del Producto")],
-        category : data[headers.indexOf("Descripción de la Categoría")],
+        category : data[headers.indexOf("Descripción de la Categoría")].replace(/"/g, ''),
         subtotal: data[headers.indexOf("Subtotal")], 
         discount: data[headers.indexOf("Descuento")], 
         tax: data[headers.indexOf("Impuestos")], 

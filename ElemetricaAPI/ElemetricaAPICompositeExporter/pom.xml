@@ -17,8 +17,9 @@
     <com.example.resource_._mapCsvProductsToJson>capp/EnterpriseServiceBus</com.example.resource_._mapCsvProductsToJson>
     <com.example.resource_._mapCsvToJson_outputSchema>capp/EnterpriseServiceBus</com.example.resource_._mapCsvToJson_outputSchema>
     <com.example.metadata_._ReportParseAPI_metadata>capp/EnterpriseServiceBus</com.example.metadata_._ReportParseAPI_metadata>
-    <com.example.resource_._mapCsvToJson_xsltStyleSheet>capp/EnterpriseServiceBus</com.example.resource_._mapCsvToJson_xsltStyleSheet>
     <com.example.resource_._mapCsvProductsToJson_xsltStyleSheet>capp/EnterpriseServiceBus</com.example.resource_._mapCsvProductsToJson_xsltStyleSheet>
+    <com.example.resource_._mapCsvToJson_xsltStyleSheet>capp/EnterpriseServiceBus</com.example.resource_._mapCsvToJson_xsltStyleSheet>
+    <com.example.resource_._summaryPerProductsMapCsvToJson_js>capp/EnterpriseIntegrator</com.example.resource_._summaryPerProductsMapCsvToJson_js>
     <com.example.api_._ReportParseAPI>capp/EnterpriseServiceBus</com.example.api_._ReportParseAPI>
     <com.example.resource_._mapCsvToJson>capp/EnterpriseServiceBus</com.example.resource_._mapCsvToJson>
     <com.example.resource_._mapCsvProductsToJson_inputSchema>capp/EnterpriseServiceBus</com.example.resource_._mapCsvProductsToJson_inputSchema>
@@ -29,42 +30,6 @@
     <com.example.resource_._mapCsvToJson_js>capp/EnterpriseIntegrator</com.example.resource_._mapCsvToJson_js>
   </properties>
   <dependencies>
-    <dependency>
-      <groupId>com.example.resource</groupId>
-      <artifactId>mapCsvToJson</artifactId>
-      <version>1.0.0</version>
-      <type>zip</type>
-    </dependency>
-    <dependency>
-      <groupId>com.example.resource</groupId>
-      <artifactId>mapCsvProductsToJson_inputSchema</artifactId>
-      <version>1.0.0</version>
-      <type>zip</type>
-    </dependency>
-    <dependency>
-      <groupId>com.example.resource</groupId>
-      <artifactId>mapCsvProductsToJson_outputSchema</artifactId>
-      <version>1.0.0</version>
-      <type>zip</type>
-    </dependency>
-    <dependency>
-      <groupId>com.example.resource</groupId>
-      <artifactId>mapCsvProductsToJson</artifactId>
-      <version>1.0.0</version>
-      <type>zip</type>
-    </dependency>
-    <dependency>
-      <groupId>com.example.resource</groupId>
-      <artifactId>mapCsvToJson_outputSchema</artifactId>
-      <version>1.0.0</version>
-      <type>zip</type>
-    </dependency>
-    <dependency>
-      <groupId>com.example.resource</groupId>
-      <artifactId>mapCsvToJson_inputSchema</artifactId>
-      <version>1.0.0</version>
-      <type>zip</type>
-    </dependency>
     <dependency>
       <groupId>com.example.metadata</groupId>
       <artifactId>ReportParseAPI_metadata</artifactId>
@@ -79,19 +44,13 @@
     </dependency>
     <dependency>
       <groupId>com.example.resource</groupId>
-      <artifactId>mapCsvToJson_xsltStyleSheet</artifactId>
-      <version>1.0.0</version>
-      <type>zip</type>
-    </dependency>
-    <dependency>
-      <groupId>com.example.resource</groupId>
-      <artifactId>mapCsvProductsToJson_xsltStyleSheet</artifactId>
-      <version>1.0.0</version>
-      <type>zip</type>
-    </dependency>
-    <dependency>
-      <groupId>com.example.resource</groupId>
       <artifactId>mapCsvToJson_js</artifactId>
+      <version>1.0.0</version>
+      <type>zip</type>
+    </dependency>
+    <dependency>
+      <groupId>com.example.resource</groupId>
+      <artifactId>summaryPerProductsMapCsvToJson_js</artifactId>
       <version>1.0.0</version>
       <type>zip</type>
     </dependency>

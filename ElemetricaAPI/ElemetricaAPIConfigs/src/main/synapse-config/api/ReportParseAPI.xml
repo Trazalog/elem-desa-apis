@@ -7,7 +7,6 @@
                 <property name="Donde" value="Seteo de las propertys con los parametros de la llamada"/>
             </log>
             <property name="uri.var.baseurl" scope="default" type="STRING" value="https://api.elemetrica.com/v2/"/>
-            <property expression="get-property('query.param.invoiceDetails')" name="invoiceDetails" scope="default" type="STRING"/>
             <property expression="get-property('query.param.openDate')" name="openDate" scope="default" type="STRING"/>
             <property expression="get-property('query.param.closingDate')" name="closingDate" scope="default" type="STRING"/>
             <property expression="get-property('query.param.categoryId')" name="categoryId" scope="default" type="STRING"/>
@@ -37,7 +36,7 @@
             <header name="Accept" scope="transport" value="text/plain"/>
             <property name="messageType" scope="axis2" type="STRING" value="text/plain;charset=ISO-8859-1"/>
             <property name="setCharacterEncoding" scope="axis2" type="STRING" value="false"/>
-            <property expression="fn:concat(get-property('uri.var.baseurl'), 'reports/download?type=', get-property('invoiceDetails'), '&amp;begin_date=', get-property('openDate'), '&amp;category_id=', get-property('categoryId'), '&amp;end_date=', get-property('closingDate'), '&amp;identifiers=', get-property('identifiers'), '&amp;indicators=', get-property('indicators'), '&amp;locals=', get-property('storeName'))" name="uri.var.report" scope="default" type="STRING"/>
+            <property expression="fn:concat(get-property('uri.var.baseurl'), 'reports/download?type=detailed_invoices_csv&amp;begin_date=', get-property('openDate'), '&amp;category_id=', get-property('categoryId'), '&amp;end_date=', get-property('closingDate'), '&amp;identifiers=', get-property('identifiers'), '&amp;indicators=', get-property('indicators'), '&amp;locals=', get-property('storeName'))" name="uri.var.report" scope="default" type="STRING"/>
             <log level="custom">
                 <property name="Paso 2" value="invoco endpoint para obtener csv"/>
                 <property name="Donde" value="Realizo la request HTTP GET con el token obtenido"/>
@@ -83,7 +82,6 @@
                 <property name="Donde" value="Seteo de las propertys con los parametros de la llamada"/>
             </log>
             <property name="uri.var.baseurl" scope="default" type="STRING" value="https://api.elemetrica.com/v2/"/>
-            <property expression="get-property('query.param.invoiceDetails')" name="invoiceDetails" scope="default" type="STRING"/>
             <property expression="get-property('query.param.openDate')" name="openDate" scope="default" type="STRING"/>
             <property expression="get-property('query.param.closingDate')" name="closingDate" scope="default" type="STRING"/>
             <property expression="get-property('query.param.categoryId')" name="categoryId" scope="default" type="STRING"/>
@@ -111,7 +109,7 @@
             <property expression="json-eval($.token)" name="authToken" scope="default" type="STRING"/>
             <header expression="get-property('authToken')" name="X-Coin" scope="transport"/>
             <header name="Accept" scope="transport" value="text/plain"/>
-            <property expression="fn:concat(get-property('uri.var.baseurl'), 'reports/download?type=', get-property('invoiceDetails'), '&amp;begin_date=', get-property('openDate'), '&amp;category_id=', get-property('categoryId'), '&amp;end_date=', get-property('closingDate'), '&amp;identifiers=', get-property('identifiers'), '&amp;indicators=', get-property('indicators'), '&amp;locals=', get-property('storeName'), '&amp;only_csv=true')" name="uri.var.report" scope="default" type="STRING"/>
+            <property expression="fn:concat(get-property('uri.var.baseurl'), 'reports/download?type=summary_products&amp;begin_date=', get-property('openDate'), '&amp;category_id=', get-property('categoryId'), '&amp;end_date=', get-property('closingDate'), '&amp;identifiers=', get-property('identifiers'), '&amp;indicators=', get-property('indicators'), '&amp;locals=', get-property('storeName'), '&amp;only_csv=true')" name="uri.var.report" scope="default" type="STRING"/>
             <log level="custom">
                 <property name="Paso 2" value="invoco endpoint para obtener csv"/>
                 <property name="Donde" value="Realizo la request HTTP GET con el token obtenido"/>
@@ -132,26 +130,16 @@
                 </endpoint>
             </call>
             <log level="custom">
-                <property name="Paso 3" value="Remover las primeras 4 lineas del reporte"/>
-                <property name="Donde" value="Script mediator que removera titulo e intervalo del reporte"/>
+                <property name="Paso 3" value="Sanitizar csv y mapear data a JSON"/>
+                <property name="Donde" value="Script mediator que mapeara la data a JSON"/>
             </log>
-            <script language="js"><![CDATA[var log = mc.getServiceLog();
-			        var payload = mc.getPayloadXML();
-			        var lines = payload.split('\n');
-			        lines.splice(0, 4);// remove 4 first lines because of title and blanks
-			        var newPayload = lines.join('\n');
-			        mc.setProperty('newPayload',newPayload);]]></script>
-            <payloadFactory description="updatePayload" media-type="text">
+            <script function="mapCsvToJson" key="conf:custom/summaryPerProductsMapCsvToJson.js" language="js"/>
+            <payloadFactory description="updatePayload" media-type="json">
                 <format>$1</format>
                 <args>
                     <arg evaluator="xml" expression="$ctx:newPayload"/>
                 </args>
             </payloadFactory>
-            <log level="custom">
-                <property name="Paso 4" value="Mapeo la data del CSV a JSON"/>
-                <property name="Donde" value="Datamapper mediator que realizara la transformacion"/>
-            </log>
-            <datamapper config="gov:datamapper/mapCsvProductsToJson.dmc" description="MapeoData" inputSchema="gov:datamapper/mapCsvProductsToJson_inputSchema.json" inputType="XML" outputSchema="gov:datamapper/mapCsvProductsToJson_outputSchema.json" outputType="XML" xsltStyleSheet="gov:datamapper/mapCsvProductsToJson_xsltStyleSheet.xml"/>
             <log level="custom">
                 <property name="Paso final" value="Respondo con el JSON listo"/>
             </log>
