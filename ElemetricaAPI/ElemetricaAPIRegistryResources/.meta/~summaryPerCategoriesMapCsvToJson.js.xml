@@ -1,0 +1,3 @@
+<resource name="summaryPerCategoriesMapCsvToJson.js" isCollection="false" path="/_system/governance/endpoints/ElemetricaAPIRegistryResources/summaryPerCategoriesMapCsvToJson.js" registryUrl="https://localhost:9443/registry" md5="1a6cb7d327b7bb574461a28784f2f3cc">
+    <mediaType>application/javascript</mediaType>
+<creator>admin</creator><lastUpdater>admin</lastUpdater><description/><uuid/></resource>

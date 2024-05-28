@@ -16,3 +16,8 @@ paths:
       responses:
         default:
           description: Default response
+  /summaryPerCategories:
+    get:
+      responses:
+        default:
+          description: Default response
