@@ -18,14 +18,14 @@ function mapCsvToJson(mc) {
         };
       }
       stores[storeName].summaryPerCategory.push({
-        categoryDescription: data[headers.indexOf("Descripci�n de la Categoría")],
-        categoryDetail: data[headers.indexOf("Detalle de la Categoría")].replace(/"/g, ''),
+        description: data[headers.indexOf("Descripci�n de la Categoría")],
+        detail: data[headers.indexOf("Detalle de la Categoría")].replace(/"/g, ''),
         invoicesQuantity : data[headers.indexOf("Facturas")],
-        categorySubtotal: data[headers.indexOf("Subtotal de la Categoría")], 
-        categoryDiscount: data[headers.indexOf("Descuento de la Categoría")], 
-        categoryTax: data[headers.indexOf("Impuesto de la Categoría")], 
-        categoryTotal: data[headers.indexOf("Total de la Categoría")],
-        categoryUnit: data[headers.indexOf("Unidades Vendidas")],
+        subtotal: data[headers.indexOf("Subtotal de la Categoría")], 
+        discount: data[headers.indexOf("Descuento de la Categoría")], 
+        taxes: data[headers.indexOf("Impuesto de la Categoría")], 
+        total: data[headers.indexOf("Total de la Categoría")],
+        unitsSold: data[headers.indexOf("Unidades Vendidas")],
       });
     }
     var json = {};
