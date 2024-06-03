@@ -388,4 +388,137 @@
         <outSequence/>
         <faultSequence/>
     </resource>
+    <resource methods="GET" uri-template="/productForecast">
+        <inSequence>
+            <log level="custom">
+                <property name="Paso 1" value="logeo y obtengo token de seguridad"/>
+                <property name="Donde" value="Seteo de las propertys con los parametros de la llamada"/>
+            </log>
+            <property name="uri.var.baseurl" scope="default" type="STRING" value="https://api.elemetrica.com/v2/"/>
+            <property expression="get-property('query.param.productId')" name="productId" scope="default" type="STRING"/>
+            <property expression="get-property('query.param.storeName')" name="storeName" scope="default" type="STRING"/>
+            <property name="messageType" scope="axis2" type="STRING" value="application/json"/>
+            <payloadFactory media-type="json">
+                <format>{"password":"Test1234."}</format>
+                <args/>
+            </payloadFactory>
+            <call>
+                <endpoint>
+                    <http method="post" uri-template="{uri.var.baseurl}accounts/api@test.com/login">
+                        <suspendOnFailure>
+                            <initialDuration>-1</initialDuration>
+                            <progressionFactor>1</progressionFactor>
+                        </suspendOnFailure>
+                        <markForSuspension>
+                            <retriesBeforeSuspension>0</retriesBeforeSuspension>
+                        </markForSuspension>
+                    </http>
+                </endpoint>
+            </call>
+            <property expression="json-eval($.token)" name="authToken" scope="default" type="STRING"/>
+            <header expression="get-property('authToken')" name="X-Coin" scope="transport"/>
+            <header name="Accept" scope="transport" value="image/png"/>
+            <property name="messageType" scope="axis2" type="STRING" value="image/png"/>
+            <property expression="fn:concat(get-property('uri.var.baseurl'), 'calculate_forecast/product?local=', get-property('storeName'),'&amp;product_id=', get-property('productId') )" name="uri.var.report" scope="default" type="STRING"/>
+            <log level="custom">
+                <property name="Paso 2" value="invoco endpoint para obtener png"/>
+                <property name="Donde" value="Realizo la request HTTP GET con el token obtenido"/>
+                <property expression="$ctx:uri.var.report" name="URL endpoint elemetrica"/>
+                <property expression="json-eval($.token)" name="authTokenObtenido"/>
+            </log>
+            <call>
+                <endpoint>
+                    <http method="get" uri-template="{uri.var.report}">
+                        <suspendOnFailure>
+                            <initialDuration>-1</initialDuration>
+                            <progressionFactor>1</progressionFactor>
+                        </suspendOnFailure>
+                        <markForSuspension>
+                            <retriesBeforeSuspension>0</retriesBeforeSuspension>
+                        </markForSuspension>
+                    </http>
+                </endpoint>
+            </call>
+            <property name="messageType" scope="axis2" type="STRING" value="application/json"/>
+            <payloadFactory description="imgpayload" media-type="json">
+                <format>{"productForecast":"$1"}</format>
+                <args>
+                    <arg evaluator="json" expression="$.binary"/>
+                </args>
+            </payloadFactory>
+            <log level="custom">
+                <property name="Paso final" value="Respondo con el JSON listo"/>
+            </log>
+            <respond/>
+        </inSequence>
+        <outSequence/>
+        <faultSequence/>
+    </resource>
+    <resource methods="GET" uri-template="/categoryForecast">
+        <inSequence>
+            <log level="custom">
+                <property name="Paso 1" value="logeo y obtengo token de seguridad"/>
+                <property name="Donde" value="Seteo de las propertys con los parametros de la llamada"/>
+            </log>
+            <property name="uri.var.baseurl" scope="default" type="STRING" value="https://api.elemetrica.com/v2/"/>
+            <property expression="get-property('query.param.categoryId')" name="categoryId" scope="default" type="STRING"/>
+            <property expression="get-property('query.param.categoryPath')" name="categoryPath" scope="default" type="STRING"/>
+            <property expression="get-property('query.param.storeName')" name="storeName" scope="default" type="STRING"/>
+            <property name="messageType" scope="axis2" type="STRING" value="application/json"/>
+            <payloadFactory media-type="json">
+                <format>{"password":"Test1234."}</format>
+                <args/>
+            </payloadFactory>
+            <call>
+                <endpoint>
+                    <http method="post" uri-template="{uri.var.baseurl}accounts/api@test.com/login">
+                        <suspendOnFailure>
+                            <initialDuration>-1</initialDuration>
+                            <progressionFactor>1</progressionFactor>
+                        </suspendOnFailure>
+                        <markForSuspension>
+                            <retriesBeforeSuspension>0</retriesBeforeSuspension>
+                        </markForSuspension>
+                    </http>
+                </endpoint>
+            </call>
+            <property expression="json-eval($.token)" name="authToken" scope="default" type="STRING"/>
+            <header expression="get-property('authToken')" name="X-Coin" scope="transport"/>
+            <header name="Accept" scope="transport" value="image/png"/>
+            <property name="messageType" scope="axis2" type="STRING" value="image/png"/>
+            <property expression="fn:concat(get-property('uri.var.baseurl'), 'calculate_forecast/category?local=', get-property('storeName'),'&amp;category_id=', get-property('categoryId'),'&amp;category_path=', get-property('categoryPath'))" name="uri.var.report" scope="default" type="STRING"/>
+            <log level="custom">
+                <property name="Paso 2" value="invoco endpoint para obtener png"/>
+                <property name="Donde" value="Realizo la request HTTP GET con el token obtenido"/>
+                <property expression="$ctx:uri.var.report" name="URL endpoint elemetrica"/>
+                <property expression="json-eval($.token)" name="authTokenObtenido"/>
+            </log>
+            <call>
+                <endpoint>
+                    <http method="get" uri-template="{uri.var.report}">
+                        <suspendOnFailure>
+                            <initialDuration>-1</initialDuration>
+                            <progressionFactor>1</progressionFactor>
+                        </suspendOnFailure>
+                        <markForSuspension>
+                            <retriesBeforeSuspension>0</retriesBeforeSuspension>
+                        </markForSuspension>
+                    </http>
+                </endpoint>
+            </call>
+            <property name="messageType" scope="axis2" type="STRING" value="application/json"/>
+            <payloadFactory description="imgpayload" media-type="json">
+                <format>{"categoryForecast":"$1"}</format>
+                <args>
+                    <arg evaluator="json" expression="$.binary"/>
+                </args>
+            </payloadFactory>
+            <log level="custom">
+                <property name="Paso final" value="Respondo con el JSON listo"/>
+            </log>
+            <respond/>
+        </inSequence>
+        <outSequence/>
+        <faultSequence/>
+    </resource>
 </api>
