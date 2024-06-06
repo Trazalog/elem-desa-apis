@@ -18,7 +18,7 @@ function mapCsvToJson(mc) {
         };
       }
       stores[storeName].categoriesEvolution.push({
-        categoryDetail: data[headers.indexOf("Detalle de la Categoría")].replace(/"/g, ''),
+        categoryDetail: data[headers.indexOf("Detalle de la Categoría")] ? data[headers.indexOf("Detalle de la Categoría")].replace(/"/g, '') : '',
         invoicesQuantity : data[headers.indexOf("Facturas")],
         presence: data[headers.indexOf("Presencia")], 
         subtotal: data[headers.indexOf("Subtotal de la Categoría")], 

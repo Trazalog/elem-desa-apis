@@ -18,8 +18,8 @@ function mapCsvToJson(mc) {
         };
       }
       stores[storeName].summaryPerCategory.push({
-        description: data[headers.indexOf("Descripci�n de la Categoría")],
-        detail: data[headers.indexOf("Detalle de la Categoría")].replace(/"/g, ''),
+        description: data[headers.indexOf("Descripción de la Categoría")],
+        detail: data[headers.indexOf("Detalle de la Categoría")] ? data[headers.indexOf("Detalle de la Categoría")].replace(/"/g, '') : '',
         invoicesQuantity : data[headers.indexOf("Facturas")],
         subtotal: data[headers.indexOf("Subtotal de la Categoría")], 
         discount: data[headers.indexOf("Descuento de la Categoría")], 
@@ -36,8 +36,16 @@ function mapCsvToJson(mc) {
     mc.setProperty("newPayload", newPayload);
     return true;
   } catch (error) {
-    log.info("mapCsvToJson ERROR: " + error);
-    return false;
+    mc.setProperty('ERROR_MESSAGE', error.message);
+    mc.setProperty('ERROR_DETAIL', error.stackTrace);
+    mc.setProperty('ERROR_CODE', 'ScriptMediatorError');
+    mc.setPayloadXML(
+        <error>
+            <code>{mc.getProperty('ERROR_CODE')}</code>
+            <message>{mc.getProperty('ERROR_MESSAGE')}</message>
+            <details>{mc.getProperty('ERROR_DETAIL')}</details>
+        </error>
+    );
   }
 }
 
