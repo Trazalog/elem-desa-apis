@@ -1,0 +1,7 @@
+<!--?xml version="1.0" encoding="UTF-8"?-->
+<api>
+	<baseurl>https://api.elemetrica.com/v2/</baseurl>
+	<user>api@test.com</user>
+	<password>Test1234.</password>
+</api>
+

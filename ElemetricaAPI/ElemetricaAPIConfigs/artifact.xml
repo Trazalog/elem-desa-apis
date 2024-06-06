@@ -8,4 +8,7 @@
     <artifact name="ReportParseAPI_metadata" groupId="com.example.metadata" version="1.0.0" type="synapse/metadata" serverRole="EnterpriseServiceBus">
         <file>src/main/resources/metadata/ReportParseAPI_metadata.yaml</file>
     </artifact>
+    <artifact name="faultSequence" groupId="com.example.sequence" version="1.0.0" type="synapse/sequence" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/sequences/faultSequence.xml</file>
+    </artifact>
 </artifacts>

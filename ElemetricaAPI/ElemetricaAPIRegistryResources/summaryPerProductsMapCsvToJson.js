@@ -22,9 +22,9 @@ function mapCsvToJson(mc) {
       //Creo el detalle del report agrupando por tienda
       productsSummary[storeName].productsSummary.push({
         productCode: data[headers.indexOf("Código Interno")],
-        productDescription: data[headers.indexOf("Descripción del Producto")].replace(/"/g, ''),
+        productDescription: data[headers.indexOf("Descripción del Producto")] ? data[headers.indexOf("Descripción del Producto")].replace(/"/g, '') : '',
         invoicesQuantity: data[headers.indexOf("Facturas")],
-        categoryDescription : data[headers.indexOf("Descripción de la Categoría")].replace(/"/g, ''),
+        categoryDescription : data[headers.indexOf("Descripción de la Categoría")] ? data[headers.indexOf("Descripción de la Categoría")].replace(/"/g, '') : '',
         proportionProductInvoice: data[headers.indexOf("Presencia")], 
         subtotalProduct: data[headers.indexOf("Subtotal del Producto")], 
         discountProduct: data[headers.indexOf("Descuento del Producto")], 

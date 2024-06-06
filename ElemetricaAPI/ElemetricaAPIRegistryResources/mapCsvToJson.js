@@ -25,7 +25,7 @@ function mapCsvToJson(mc) {
           clientId: data[headers.indexOf("Cédula del Cliente")],
           diners: data[headers.indexOf("Comensales")],
           othersTags: {
-            Tipoorden: data[headers.indexOf("Tipoorden")].replace(/"/g, ''),
+            Tipoorden: data[headers.indexOf("Tipoorden")] ? data[headers.indexOf("Tipoorden")].replace(/"/g, '') : '',
           },
           waiterTags: {
             Mesonero: data[headers.indexOf("Mesonero")],
@@ -38,7 +38,7 @@ function mapCsvToJson(mc) {
       invoices[invoiceId].invoiceDetails.push({
         productCode: data[headers.indexOf("Código Interno del Producto")],
         productDescription: data[headers.indexOf("Descripción del Producto")],
-        category : data[headers.indexOf("Descripción de la Categoría")].replace(/"/g, ''),
+        category : data[headers.indexOf("Descripción de la Categoría")] ? data[headers.indexOf("Descripción de la Categoría")].replace(/"/g, '') : '',
         subtotal: data[headers.indexOf("Subtotal")], 
         discount: data[headers.indexOf("Descuento")], 
         tax: data[headers.indexOf("Impuestos")], 

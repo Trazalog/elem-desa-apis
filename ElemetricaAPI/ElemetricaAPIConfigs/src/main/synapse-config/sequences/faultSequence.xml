@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sequence name="faultSequence" trace="disable" xmlns="http://ws.apache.org/ns/synapse">
+    <log category="ERROR" level="custom">
+        <property name="ERROR" value="Paso con error"/>
+    </log>
+    <payloadFactory media-type="json">
+        <format>
+        {"errors" : 
+        {
+        	"code":"$1",
+        	"detail":"$2",
+        	"payload":"$3"
+        }
+}
+        </format>
+        <args>
+            <arg evaluator="json" expression="$.errors[0].code"/>
+            <arg evaluator="json" expression="$.errors[0].message"/>
+            <arg evaluator="json" expression="$"/>
+        </args>
+    </payloadFactory>
+    <property name="messageType" scope="axis2" type="STRING" value="application/json"/>
+    <property name="HTTP_SC" scope="axis2" type="STRING" value="404"/>
+    <send/>
+</sequence>
