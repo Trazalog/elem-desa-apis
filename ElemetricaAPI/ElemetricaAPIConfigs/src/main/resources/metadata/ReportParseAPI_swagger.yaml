@@ -16,3 +16,28 @@ paths:
       responses:
         default:
           description: Default response
+  /summaryPerCategories:
+    get:
+      responses:
+        default:
+          description: Default response
+  /evolutionByProduct:
+    get:
+      responses:
+        default:
+          description: Default response
+  /evolutionByCategory:
+    get:
+      responses:
+        default:
+          description: Default response
+  /productForecast:
+    get:
+      responses:
+        default:
+          description: Default response
+  /categoryForecast:
+    get:
+      responses:
+        default:
+          description: Default response

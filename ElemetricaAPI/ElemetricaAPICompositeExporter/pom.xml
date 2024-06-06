@@ -16,6 +16,8 @@
   <properties>
     <com.example.resource_._credencialesconf_xml>capp/EnterpriseIntegrator</com.example.resource_._credencialesconf_xml>
     <com.example.sequence_._faultSequence>capp/EnterpriseServiceBus</com.example.sequence_._faultSequence>
+    <com.example.resource_._evolutionByCategoryMapCsvToJson_js>capp/EnterpriseIntegrator</com.example.resource_._evolutionByCategoryMapCsvToJson_js>
+    <com.example.resource_._summaryPerCategoriesMapCsvToJson_js>capp/EnterpriseIntegrator</com.example.resource_._summaryPerCategoriesMapCsvToJson_js>
     <com.example.resource_._mapCsvProductsToJson>capp/EnterpriseServiceBus</com.example.resource_._mapCsvProductsToJson>
     <com.example.resource_._mapCsvToJson_outputSchema>capp/EnterpriseServiceBus</com.example.resource_._mapCsvToJson_outputSchema>
     <com.example.metadata_._ReportParseAPI_metadata>capp/EnterpriseServiceBus</com.example.metadata_._ReportParseAPI_metadata>
@@ -24,8 +26,10 @@
     <com.example.resource_._summaryPerProductsMapCsvToJson_js>capp/EnterpriseIntegrator</com.example.resource_._summaryPerProductsMapCsvToJson_js>
     <com.example.api_._ReportParseAPI>capp/EnterpriseServiceBus</com.example.api_._ReportParseAPI>
     <com.example.resource_._mapCsvToJson>capp/EnterpriseServiceBus</com.example.resource_._mapCsvToJson>
+    <com.example.resource_._evolutionByProductMapCsvToJson_js>capp/EnterpriseIntegrator</com.example.resource_._evolutionByProductMapCsvToJson_js>
     <com.example.resource_._mapCsvProductsToJson_inputSchema>capp/EnterpriseServiceBus</com.example.resource_._mapCsvProductsToJson_inputSchema>
     <com.example.resource_._mapCsvProductsToJson_outputSchema>capp/EnterpriseServiceBus</com.example.resource_._mapCsvProductsToJson_outputSchema>
+    <com.example.resource_._summaryPerCategoriesMapCsvToJson.js>capp/EnterpriseIntegrator</com.example.resource_._summaryPerCategoriesMapCsvToJson.js>
     <com.example.resource_._mapCsvToJson_inputSchema>capp/EnterpriseServiceBus</com.example.resource_._mapCsvToJson_inputSchema>
     <com.example.metadata_._ReportParseAPI_swagger>capp/EnterpriseServiceBus</com.example.metadata_._ReportParseAPI_swagger>
     <artifact.types>jaggery/app=zip,synapse/priority-executor=xml,synapse/inbound-endpoint=xml,service/rule=aar,synapse/message-store=xml,event/stream=json,service/meta=xml,datasource/datasource=xml,synapse/proxy-service=xml,bpel/workflow=zip,synapse/sequence=xml,synapse/endpointTemplate=xml,carbon/application=car,wso2/gadget=dar,synapse/api=xml,synapse/event-source=xml,synapse/message-processors=xml,event/receiver=xml,lib/dataservice/validator=jar,synapse/template=xml,synapse/endpoint=xml,lib/carbon/ui=jar,lib/synapse/mediator=jar,synapse/metadata=yaml,event/publisher=xml,synapse/local-entry=xml,synapse/task=xml,webapp/jaxws=war,registry/resource=zip,synapse/configuration=xml,service/axis2=aar,synapse/lib=zip,synapse/sequenceTemplate=xml,event/execution-plan=siddhiql,service/dataservice=dbs,web/application=war,lib/library/bundle=jar</artifact.types>
@@ -35,12 +39,15 @@
     <dependency>
       <groupId>com.example.resource</groupId>
       <artifactId>credencialesconf_xml</artifactId>
+      <artifactId>evolutionByCategoryMapCsvToJson_js</artifactId>
       <version>1.0.0</version>
       <type>zip</type>
     </dependency>
     <dependency>
       <groupId>com.example.sequence</groupId>
       <artifactId>faultSequence</artifactId>
+      <groupId>com.example.resource</groupId>
+      <artifactId>summaryPerCategoriesMapCsvToJson_js</artifactId>
       <version>1.0.0</version>
       <type>xml</type>
     </dependency>
@@ -48,17 +55,18 @@
       <groupId>com.example.metadata</groupId>
       <artifactId>ReportParseAPI_metadata</artifactId>
       <version>1.0.0</version>
-      <type>yaml</type>
+      <type>xml</type>
     </dependency>
     <dependency>
-      <groupId>com.example.metadata</groupId>
-      <artifactId>ReportParseAPI_swagger</artifactId>
+      <groupId>com.example.resource</groupId>
+      <artifactId>mapCsvToJson</artifactId>
       <version>1.0.0</version>
-      <type>yaml</type>
+      <type>zip</type>
     </dependency>
     <dependency>
       <groupId>com.example.resource</groupId>
       <artifactId>mapCsvToJson_js</artifactId>
+      <artifactId>evolutionByProductMapCsvToJson_js</artifactId>
       <version>1.0.0</version>
       <type>zip</type>
     </dependency>
@@ -72,7 +80,19 @@
       <groupId>com.example.api</groupId>
       <artifactId>ReportParseAPI</artifactId>
       <version>1.0.0</version>
-      <type>xml</type>
+      <type>zip</type>
+    </dependency>
+    <dependency>
+      <groupId>com.example.metadata</groupId>
+      <artifactId>ReportParseAPI_swagger</artifactId>
+      <version>1.0.0</version>
+      <type>yaml</type>
+    </dependency>
+    <dependency>
+      <groupId>com.example.resource</groupId>
+      <artifactId>mapCsvToJson_js</artifactId>
+      <version>1.0.0</version>
+      <type>zip</type>
     </dependency>
   </dependencies>
   <repositories>
