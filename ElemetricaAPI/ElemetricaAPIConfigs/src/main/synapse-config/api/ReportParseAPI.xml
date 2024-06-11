@@ -3,6 +3,9 @@
     <resource methods="GET" uri-template="/invoiceDetails">
         <inSequence>
             <log level="custom">
+                <property name="API 1" value="/invoiceDetails"/>
+            </log>
+            <log level="custom">
                 <property name="Paso 1" value="logeo y obtengo token de seguridad"/>
                 <property name="Donde" value="Seteo de las propertys con los parametros de la llamada"/>
             </log>
@@ -16,9 +19,6 @@
             <property expression="get-property('query.param.categoryId')" name="categoryId" scope="default" type="STRING"/>
             <property expression="get-property('query.param.storesId')" name="storesId" scope="default" type="STRING"/>
             <property name="messageType" scope="axis2" type="STRING" value="application/json"/>
-            <log level="custom">
-                <property expression="$ctx:uri.var.login" name="Paso BUG"/>
-            </log>
             <payloadFactory media-type="json">
                 <format>{"password":"$1"}</format>
                 <args>
@@ -98,6 +98,9 @@
     </resource>
     <resource methods="GET" uri-template="/productsSummary">
         <inSequence>
+            <log level="custom">
+                <property name="API 2" value="/productsSummary"/>
+            </log>
             <log level="custom">
                 <property name="Paso 1" value="logeo y obtengo token de seguridad"/>
                 <property name="Donde" value="Seteo de las propertys con los parametros de la llamada"/>
@@ -189,6 +192,9 @@
     </resource>
     <resource methods="GET" uri-template="/summaryPerCategories">
         <inSequence>
+            <log level="custom">
+                <property name="API 3" value="/summaryPerCategories"/>
+            </log>
             <log level="custom">
                 <property name="Paso 1" value="logeo y obtengo token de seguridad"/>
                 <property name="Donde" value="Seteo de las propertys con los parametros de la llamada"/>
@@ -283,25 +289,32 @@
     <resource methods="GET" uri-template="/evolutionByProduct">
         <inSequence>
             <log level="custom">
+                <property name="API 4" value="/evolutionByProduct"/>
+            </log>
+            <log level="custom">
                 <property name="Paso 1" value="logeo y obtengo token de seguridad"/>
                 <property name="Donde" value="Seteo de las propertys con los parametros de la llamada"/>
             </log>
-            <property name="uri.var.baseurl" scope="default" type="STRING" value="https://api.elemetrica.com/v2/"/>
+            <property expression="get-property('registry','conf:custom/apiconfig.xml')" name="apiconf" scope="default" type="OM" xmlns:ns="http://org.apache.synapse/xsd" xmlns:ns2="http://org.apache.synapse/xsd"/>
+            <property expression="$ctx:apiconf//user" name="userConf" scope="default" type="STRING" xmlns:ns="http://org.apache.synapse/xsd" xmlns:ns2="http://org.apache.synapse/xsd"/>
+            <property expression="$ctx:apiconf//password" name="passConf" scope="default" type="STRING" xmlns:ns="http://org.apache.synapse/xsd" xmlns:ns2="http://org.apache.synapse/xsd"/>
+            <property expression="$ctx:apiconf//baseurl" name="baseurl" scope="default" type="STRING"/>
+            <property expression="fn:concat(get-property('baseurl'), 'accounts/', get-property('userConf'),'/login')" name="uri.var.login" scope="default" type="STRING"/>
             <property expression="get-property('query.param.openDate')" name="openDate" scope="default" type="STRING"/>
             <property expression="get-property('query.param.closingDate')" name="closingDate" scope="default" type="STRING"/>
             <property expression="get-property('query.param.productId')" name="productId" scope="default" type="STRING"/>
-            <property expression="get-property('query.param.storeName')" name="storeName" scope="default" type="STRING"/>
-            <property expression="get-property('query.param.identifiers')" name="identifiers" scope="default" type="STRING"/>
-            <property expression="get-property('query.param.indicators')" name="indicators" scope="default" type="STRING"/>
-            <property expression="get-property('query.param.periodicity')" name="periodicity" scope="default" type="STRING"/>
+            <property expression="get-property('query.param.storesId')" name="storesId" scope="default" type="STRING"/>
+            <property expression="get-property('query.param.rangeDate')" name="rangeDate" scope="default" type="STRING"/>
             <property name="messageType" scope="axis2" type="STRING" value="application/json"/>
             <payloadFactory media-type="json">
-                <format>{"password":"Test1234."}</format>
-                <args/>
+                <format>{"password":"$1"}</format>
+                <args>
+                    <arg evaluator="xml" expression="$ctx:passConf"/>
+                </args>
             </payloadFactory>
             <call>
                 <endpoint>
-                    <http method="post" uri-template="{uri.var.baseurl}accounts/api@test.com/login">
+                    <http method="post" uri-template="{uri.var.login}">
                         <suspendOnFailure>
                             <initialDuration>-1</initialDuration>
                             <progressionFactor>1</progressionFactor>
@@ -312,12 +325,19 @@
                     </http>
                 </endpoint>
             </call>
+            <filter regex="2[0-9][0-9]" source="get-property('axis2', 'HTTP_SC')">
+                <then/>
+                <else>
+                    <header name="Accept" scope="transport" value="application/json"/>
+                    <sequence key="faultSequence"/>
+                </else>
+            </filter>
             <property expression="json-eval($.token)" name="authToken" scope="default" type="STRING"/>
             <header expression="get-property('authToken')" name="X-Coin" scope="transport"/>
             <header name="Accept" scope="transport" value="text/plain"/>
             <property name="messageType" scope="axis2" type="STRING" value="text/plain;charset=ISO-8859-1"/>
             <property name="setCharacterEncoding" scope="axis2" type="STRING" value="false"/>
-            <property expression="fn:concat(get-property('uri.var.baseurl'), 'reports/download?type=evolution_product&amp;begin_date=', get-property('openDate'), '&amp;product_id=', get-property('productId'), '&amp;end_date=', get-property('closingDate'), '&amp;identifiers=', get-property('identifiers'), '&amp;indicators=', get-property('indicators'), '&amp;locals=', get-property('storeName'),'&amp;time=', get-property('periodicity'),'&amp;only_csv=true' )" name="uri.var.report" scope="default" type="STRING"/>
+            <property expression="fn:concat(get-property('baseurl'), 'reports/download?type=evolution_product&amp;begin_date=', get-property('openDate'), '&amp;product_id=', get-property('productId'), '&amp;end_date=', get-property('closingDate'), '&amp;identifiers=local,code,path,name&amp;indicators=quantity,invoices,presence,subtotal,tax,discount,total&amp;locals=', get-property('storesId'),'&amp;time=', get-property('rangeDate'),'&amp;only_csv=true' )" name="uri.var.report" scope="default" type="STRING"/>
             <log level="custom">
                 <property name="Paso 2" value="invoco endpoint para obtener csv"/>
                 <property name="Donde" value="Realizo la request HTTP GET con el token obtenido"/>
@@ -337,6 +357,13 @@
                     </http>
                 </endpoint>
             </call>
+            <filter regex="2[0-9][0-9]" source="get-property('axis2', 'HTTP_SC')">
+                <then/>
+                <else>
+                    <header name="Accept" scope="transport" value="application/json"/>
+                    <sequence key="faultSequence"/>
+                </else>
+            </filter>
             <log level="custom">
                 <property name="Paso 3" value="Sanitizar csv y mapear data a JSON"/>
                 <property name="Donde" value="Script mediator que mapeara la data a JSON"/>
@@ -359,26 +386,33 @@
     <resource methods="GET" uri-template="/evolutionByCategory">
         <inSequence>
             <log level="custom">
+                <property name="API 5" value="/evolutionByCategory"/>
+            </log>
+            <log level="custom">
                 <property name="Paso 1" value="logeo y obtengo token de seguridad"/>
                 <property name="Donde" value="Seteo de las propertys con los parametros de la llamada"/>
             </log>
-            <property name="uri.var.baseurl" scope="default" type="STRING" value="https://api.elemetrica.com/v2/"/>
+            <property expression="get-property('registry','conf:custom/apiconfig.xml')" name="apiconf" scope="default" type="OM" xmlns:ns="http://org.apache.synapse/xsd" xmlns:ns2="http://org.apache.synapse/xsd"/>
+            <property expression="$ctx:apiconf//user" name="userConf" scope="default" type="STRING" xmlns:ns="http://org.apache.synapse/xsd" xmlns:ns2="http://org.apache.synapse/xsd"/>
+            <property expression="$ctx:apiconf//password" name="passConf" scope="default" type="STRING" xmlns:ns="http://org.apache.synapse/xsd" xmlns:ns2="http://org.apache.synapse/xsd"/>
+            <property expression="$ctx:apiconf//baseurl" name="baseurl" scope="default" type="STRING"/>
+            <property expression="fn:concat(get-property('baseurl'), 'accounts/', get-property('userConf'),'/login')" name="uri.var.login" scope="default" type="STRING"/>
             <property expression="get-property('query.param.openDate')" name="openDate" scope="default" type="STRING"/>
             <property expression="get-property('query.param.closingDate')" name="closingDate" scope="default" type="STRING"/>
             <property expression="get-property('query.param.categoryId')" name="categoryId" scope="default" type="STRING"/>
-            <property expression="get-property('query.param.categoryPath')" name="categoryPath" scope="default" type="STRING"/>
-            <property expression="get-property('query.param.storeName')" name="storeName" scope="default" type="STRING"/>
-            <property expression="get-property('query.param.identifiers')" name="identifiers" scope="default" type="STRING"/>
-            <property expression="get-property('query.param.indicators')" name="indicators" scope="default" type="STRING"/>
-            <property expression="get-property('query.param.periodicity')" name="periodicity" scope="default" type="STRING"/>
+            <property expression="get-property('query.param.categoryTreeDetail')" name="categoryTreeDetail" scope="default" type="STRING"/>
+            <property expression="get-property('query.param.storesId')" name="storesId" scope="default" type="STRING"/>
+            <property expression="get-property('query.param.rangeDate')" name="rangeDate" scope="default" type="STRING"/>
             <property name="messageType" scope="axis2" type="STRING" value="application/json"/>
             <payloadFactory media-type="json">
-                <format>{"password":"Test1234."}</format>
-                <args/>
+                <format>{"password":"$1"}</format>
+                <args>
+                    <arg evaluator="xml" expression="$ctx:passConf"/>
+                </args>
             </payloadFactory>
             <call>
                 <endpoint>
-                    <http method="post" uri-template="{uri.var.baseurl}accounts/api@test.com/login">
+                    <http method="post" uri-template="{uri.var.login}">
                         <suspendOnFailure>
                             <initialDuration>-1</initialDuration>
                             <progressionFactor>1</progressionFactor>
@@ -389,12 +423,19 @@
                     </http>
                 </endpoint>
             </call>
+            <filter regex="2[0-9][0-9]" source="get-property('axis2', 'HTTP_SC')">
+                <then/>
+                <else>
+                    <header name="Accept" scope="transport" value="application/json"/>
+                    <sequence key="faultSequence"/>
+                </else>
+            </filter>
             <property expression="json-eval($.token)" name="authToken" scope="default" type="STRING"/>
             <header expression="get-property('authToken')" name="X-Coin" scope="transport"/>
             <header name="Accept" scope="transport" value="text/plain"/>
             <property name="messageType" scope="axis2" type="STRING" value="text/plain;charset=ISO-8859-1"/>
             <property name="setCharacterEncoding" scope="axis2" type="STRING" value="false"/>
-            <property expression="fn:concat(get-property('uri.var.baseurl'), 'reports/download?type=evolution_category&amp;begin_date=', get-property('openDate'), '&amp;category_id=', get-property('categoryId'), '&amp;category_path=', get-property('categoryPath'),'&amp;end_date=', get-property('closingDate'), '&amp;identifiers=', get-property('identifiers'), '&amp;indicators=', get-property('indicators'), '&amp;locals=', get-property('storeName'),'&amp;time=', get-property('periodicity'),'&amp;only_csv=true' )" name="uri.var.report" scope="default" type="STRING"/>
+            <property expression="fn:concat(get-property('baseurl'), 'reports/download?type=evolution_category&amp;begin_date=', get-property('openDate'), '&amp;category_id=', get-property('categoryId'), '&amp;category_path=', get-property('categoryTreeDetail'),'&amp;end_date=', get-property('closingDate'), '&amp;identifiers=local,path&amp;indicators=invoices,quantity,presence,subtotal,tax,discount,total&amp;locals=', get-property('storesId'),'&amp;time=', get-property('rangeDate'),'&amp;only_csv=true' )" name="uri.var.report" scope="default" type="STRING"/>
             <log level="custom">
                 <property name="Paso 2" value="invoco endpoint para obtener csv"/>
                 <property name="Donde" value="Realizo la request HTTP GET con el token obtenido"/>
@@ -414,6 +455,13 @@
                     </http>
                 </endpoint>
             </call>
+            <filter regex="2[0-9][0-9]" source="get-property('axis2', 'HTTP_SC')">
+                <then/>
+                <else>
+                    <header name="Accept" scope="transport" value="application/json"/>
+                    <sequence key="faultSequence"/>
+                </else>
+            </filter>
             <log level="custom">
                 <property name="Paso 3" value="Sanitizar csv y mapear data a JSON"/>
                 <property name="Donde" value="Script mediator que mapeara la data a JSON"/>
@@ -436,20 +484,29 @@
     <resource methods="GET" uri-template="/productForecast">
         <inSequence>
             <log level="custom">
+                <property name="API 6" value="/productForecast"/>
+            </log>
+            <log level="custom">
                 <property name="Paso 1" value="logeo y obtengo token de seguridad"/>
                 <property name="Donde" value="Seteo de las propertys con los parametros de la llamada"/>
             </log>
-            <property name="uri.var.baseurl" scope="default" type="STRING" value="https://api.elemetrica.com/v2/"/>
+            <property expression="get-property('registry','conf:custom/apiconfig.xml')" name="apiconf" scope="default" type="OM" xmlns:ns="http://org.apache.synapse/xsd" xmlns:ns2="http://org.apache.synapse/xsd"/>
+            <property expression="$ctx:apiconf//user" name="userConf" scope="default" type="STRING" xmlns:ns="http://org.apache.synapse/xsd" xmlns:ns2="http://org.apache.synapse/xsd"/>
+            <property expression="$ctx:apiconf//password" name="passConf" scope="default" type="STRING" xmlns:ns="http://org.apache.synapse/xsd" xmlns:ns2="http://org.apache.synapse/xsd"/>
+            <property expression="$ctx:apiconf//baseurl" name="baseurl" scope="default" type="STRING"/>
+            <property expression="fn:concat(get-property('baseurl'), 'accounts/', get-property('userConf'),'/login')" name="uri.var.login" scope="default" type="STRING"/>
             <property expression="get-property('query.param.productId')" name="productId" scope="default" type="STRING"/>
-            <property expression="get-property('query.param.storeName')" name="storeName" scope="default" type="STRING"/>
+            <property expression="get-property('query.param.storeId')" name="storeId" scope="default" type="STRING"/>
             <property name="messageType" scope="axis2" type="STRING" value="application/json"/>
             <payloadFactory media-type="json">
-                <format>{"password":"Test1234."}</format>
-                <args/>
+                <format>{"password":"$1"}</format>
+                <args>
+                    <arg evaluator="xml" expression="$ctx:passConf"/>
+                </args>
             </payloadFactory>
             <call>
                 <endpoint>
-                    <http method="post" uri-template="{uri.var.baseurl}accounts/api@test.com/login">
+                    <http method="post" uri-template="{uri.var.login}">
                         <suspendOnFailure>
                             <initialDuration>-1</initialDuration>
                             <progressionFactor>1</progressionFactor>
@@ -460,11 +517,18 @@
                     </http>
                 </endpoint>
             </call>
+            <filter regex="2[0-9][0-9]" source="get-property('axis2', 'HTTP_SC')">
+                <then/>
+                <else>
+                    <header name="Accept" scope="transport" value="application/json"/>
+                    <sequence key="faultSequence"/>
+                </else>
+            </filter>
             <property expression="json-eval($.token)" name="authToken" scope="default" type="STRING"/>
             <header expression="get-property('authToken')" name="X-Coin" scope="transport"/>
             <header name="Accept" scope="transport" value="image/png"/>
             <property name="messageType" scope="axis2" type="STRING" value="image/png"/>
-            <property expression="fn:concat(get-property('uri.var.baseurl'), 'calculate_forecast/product?local=', get-property('storeName'),'&amp;product_id=', get-property('productId') )" name="uri.var.report" scope="default" type="STRING"/>
+            <property expression="fn:concat(get-property('baseurl'), 'calculate_forecast/product?local=', get-property('storeId'),'&amp;product_id=', get-property('productId') )" name="uri.var.report" scope="default" type="STRING"/>
             <log level="custom">
                 <property name="Paso 2" value="invoco endpoint para obtener png"/>
                 <property name="Donde" value="Realizo la request HTTP GET con el token obtenido"/>
@@ -484,6 +548,13 @@
                     </http>
                 </endpoint>
             </call>
+            <filter regex="2[0-9][0-9]" source="get-property('axis2', 'HTTP_SC')">
+                <then/>
+                <else>
+                    <header name="Accept" scope="transport" value="application/json"/>
+                    <sequence key="faultSequence"/>
+                </else>
+            </filter>
             <property name="messageType" scope="axis2" type="STRING" value="application/json"/>
             <payloadFactory description="imgpayload" media-type="json">
                 <format>{"productForecast":"$1"}</format>
@@ -502,21 +573,30 @@
     <resource methods="GET" uri-template="/categoryForecast">
         <inSequence>
             <log level="custom">
+                <property name="API 7" value="/categoryForecast"/>
+            </log>
+            <log level="custom">
                 <property name="Paso 1" value="logeo y obtengo token de seguridad"/>
                 <property name="Donde" value="Seteo de las propertys con los parametros de la llamada"/>
             </log>
-            <property name="uri.var.baseurl" scope="default" type="STRING" value="https://api.elemetrica.com/v2/"/>
+            <property expression="get-property('registry','conf:custom/apiconfig.xml')" name="apiconf" scope="default" type="OM" xmlns:ns="http://org.apache.synapse/xsd" xmlns:ns2="http://org.apache.synapse/xsd"/>
+            <property expression="$ctx:apiconf//user" name="userConf" scope="default" type="STRING" xmlns:ns="http://org.apache.synapse/xsd" xmlns:ns2="http://org.apache.synapse/xsd"/>
+            <property expression="$ctx:apiconf//password" name="passConf" scope="default" type="STRING" xmlns:ns="http://org.apache.synapse/xsd" xmlns:ns2="http://org.apache.synapse/xsd"/>
+            <property expression="$ctx:apiconf//baseurl" name="baseurl" scope="default" type="STRING"/>
+            <property expression="fn:concat(get-property('baseurl'), 'accounts/', get-property('userConf'),'/login')" name="uri.var.login" scope="default" type="STRING"/>
             <property expression="get-property('query.param.categoryId')" name="categoryId" scope="default" type="STRING"/>
             <property expression="get-property('query.param.categoryPath')" name="categoryPath" scope="default" type="STRING"/>
-            <property expression="get-property('query.param.storeName')" name="storeName" scope="default" type="STRING"/>
+            <property expression="get-property('query.param.storeId')" name="storeId" scope="default" type="STRING"/>
             <property name="messageType" scope="axis2" type="STRING" value="application/json"/>
             <payloadFactory media-type="json">
-                <format>{"password":"Test1234."}</format>
-                <args/>
+                <format>{"password":"$1"}</format>
+                <args>
+                    <arg evaluator="xml" expression="$ctx:passConf"/>
+                </args>
             </payloadFactory>
             <call>
                 <endpoint>
-                    <http method="post" uri-template="{uri.var.baseurl}accounts/api@test.com/login">
+                    <http method="post" uri-template="{uri.var.login}">
                         <suspendOnFailure>
                             <initialDuration>-1</initialDuration>
                             <progressionFactor>1</progressionFactor>
@@ -527,11 +607,18 @@
                     </http>
                 </endpoint>
             </call>
+            <filter regex="2[0-9][0-9]" source="get-property('axis2', 'HTTP_SC')">
+                <then/>
+                <else>
+                    <header name="Accept" scope="transport" value="application/json"/>
+                    <sequence key="faultSequence"/>
+                </else>
+            </filter>
             <property expression="json-eval($.token)" name="authToken" scope="default" type="STRING"/>
             <header expression="get-property('authToken')" name="X-Coin" scope="transport"/>
             <header name="Accept" scope="transport" value="image/png"/>
             <property name="messageType" scope="axis2" type="STRING" value="image/png"/>
-            <property expression="fn:concat(get-property('uri.var.baseurl'), 'calculate_forecast/category?local=', get-property('storeName'),'&amp;category_id=', get-property('categoryId'),'&amp;category_path=', get-property('categoryPath'))" name="uri.var.report" scope="default" type="STRING"/>
+            <property expression="fn:concat(get-property('baseurl'), 'calculate_forecast/category?local=', get-property('storeId'),'&amp;category_id=', get-property('categoryId'),'&amp;category_path=', get-property('categoryPath'))" name="uri.var.report" scope="default" type="STRING"/>
             <log level="custom">
                 <property name="Paso 2" value="invoco endpoint para obtener png"/>
                 <property name="Donde" value="Realizo la request HTTP GET con el token obtenido"/>

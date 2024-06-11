@@ -36,16 +36,11 @@ function mapCsvToJson(mc) {
     mc.setProperty("newPayload", newPayload);
     return true;
   } catch (error) {
-    mc.setProperty('ERROR_MESSAGE', error.message);
-    mc.setProperty('ERROR_DETAIL', error.stackTrace);
-    mc.setProperty('ERROR_CODE', 'ScriptMediatorError');
-    mc.setPayloadXML(
-        <error>
-            <code>{mc.getProperty('ERROR_CODE')}</code>
-            <message>{mc.getProperty('ERROR_MESSAGE')}</message>
-            <details>{mc.getProperty('ERROR_DETAIL')}</details>
-        </error>
-    );
+    var log = mc.getServiceLog();
+    log.info("ERROR");
+    log.info(error);
+
+    return false;
   }
 }
 

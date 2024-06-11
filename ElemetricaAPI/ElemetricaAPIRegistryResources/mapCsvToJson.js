@@ -18,33 +18,42 @@ function mapCsvToJson(mc) {
           storeName: data[headers.indexOf("Nombre Local")],
           subgroup: data[headers.indexOf("Subgrupo")],
           invoiceNumber: invoiceId,
-          closingDate: data[headers.indexOf("Fecha Fin Transacción")],
-          openDate: data[headers.indexOf("Fecha Inicio Transacción")],
-          shortDate: data[headers.indexOf("Fecha Corta Transacción")],
+          closingDate: formatDate(data[headers.indexOf("Fecha Fin Transacción")],log),
+          openDate: formatDate(data[headers.indexOf("Fecha Inicio Transacción")],log),
+          shortDate: formatDate(data[headers.indexOf("Fecha Corta Transacción")] ? data[headers.indexOf("Fecha Corta Transacción")] : '',log),
           clientName: data[headers.indexOf("Nombre del Cliente")],
           clientId: data[headers.indexOf("Cédula del Cliente")],
-          diners: data[headers.indexOf("Comensales")],
+          diners: parseInt(data[headers.indexOf("Comensales")]),
           othersTags: {
             Tipoorden: data[headers.indexOf("Tipoorden")] ? data[headers.indexOf("Tipoorden")].replace(/"/g, '') : '',
           },
-          waiterTags: {
-            Mesonero: data[headers.indexOf("Mesonero")],
-            Area: data[headers.indexOf("Area")],
-            Turno: data[headers.indexOf("Turno")],
-          },
-          invoiceDetails: [],
+          waiterTags: [
+            {
+              name : "Mesonero",
+              value : data[headers.indexOf("Mesonero")] ? data[headers.indexOf("Mesonero")] : '',
+            },
+            {
+              name : "Area",
+              value : data[headers.indexOf("Area")] ? data[headers.indexOf("Area")] : '',
+            },
+            {
+              name : "Turno",
+              value : data[headers.indexOf("Turno")] ? data[headers.indexOf("Turno")]: '',
+            }
+          ],
+    invoiceDetails: [],
         };
       }
       invoices[invoiceId].invoiceDetails.push({
         productCode: data[headers.indexOf("Código Interno del Producto")],
         productDescription: data[headers.indexOf("Descripción del Producto")],
         category : data[headers.indexOf("Descripción de la Categoría")] ? data[headers.indexOf("Descripción de la Categoría")].replace(/"/g, '') : '',
-        subtotal: data[headers.indexOf("Subtotal")], 
-        discount: data[headers.indexOf("Descuento")], 
-        tax: data[headers.indexOf("Impuestos")], 
-        total: data[headers.indexOf("Total")],
-        unit: data[headers.indexOf("Unidades Vendidas")],
-        price: data[headers.indexOf("Precio")],
+        subtotal: parseFloat(data[headers.indexOf("Subtotal")]), 
+        discount: parseFloat(data[headers.indexOf("Descuento")]), 
+        tax: parseFloat(data[headers.indexOf("Impuestos")]), 
+        total: parseFloat(data[headers.indexOf("Total")]),
+        unit: parseInt(data[headers.indexOf("Unidades Vendidas")]),
+        price: parseFloat(data[headers.indexOf("Precio")]),
       });
     }
     var json = {};
@@ -56,8 +65,28 @@ function mapCsvToJson(mc) {
 
     return true;
   } catch (error) {
-    log.info("mapCsvToJson ERROR: " + error);
+    var log = mc.getServiceLog();
+    log.info("ERROR");
+    log.info(error);
 
     return false;
   }
+}
+
+function formatDate(dateString, log) {
+	var dateAndTimeParts = dateString.split(" ");
+	var dateParts = dateAndTimeParts[0].split("/");
+	var HH = '';
+	var mm = '';
+
+	var timeParts = dateAndTimeParts[1] ? dateAndTimeParts[1].split(":") : null;
+	var date = dateParts[2] + "-" + dateParts[1] + "-" + dateParts[0];
+
+	if (timeParts !== null && timeParts.length == 2) {
+		HH = timeParts[0] ? timeParts[0] : '';
+		mm = timeParts[1] ? timeParts[1] : '';
+		date = date + " " + HH + ":" + mm;
+	}
+	
+	return date;
 }

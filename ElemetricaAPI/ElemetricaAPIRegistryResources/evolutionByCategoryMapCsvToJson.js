@@ -37,7 +37,10 @@ function mapCsvToJson(mc) {
     mc.setProperty("newPayload", newPayload);
     return true;
   } catch (error) {
-    log.info("mapCsvToJson ERROR: " + error);
+    var log = mc.getServiceLog();
+    log.info("ERROR");
+    log.info(error);
+
     return false;
   }
 }

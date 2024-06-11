@@ -14,9 +14,9 @@
   <name>ElemetricaAPICompositeExporter</name>
   <description>ElemetricaAPICompositeExporter</description>
   <properties>
+    <com.example.resource_._evolutionByCategoryMapCsvToJson_js>capp/EnterpriseIntegrator</com.example.resource_._evolutionByCategoryMapCsvToJson_js>
     <com.example.resource_._credencialesconf_xml>capp/EnterpriseIntegrator</com.example.resource_._credencialesconf_xml>
     <com.example.sequence_._faultSequence>capp/EnterpriseServiceBus</com.example.sequence_._faultSequence>
-    <com.example.resource_._evolutionByCategoryMapCsvToJson_js>capp/EnterpriseIntegrator</com.example.resource_._evolutionByCategoryMapCsvToJson_js>
     <com.example.resource_._summaryPerCategoriesMapCsvToJson_js>capp/EnterpriseIntegrator</com.example.resource_._summaryPerCategoriesMapCsvToJson_js>
     <com.example.resource_._mapCsvProductsToJson>capp/EnterpriseServiceBus</com.example.resource_._mapCsvProductsToJson>
     <com.example.resource_._summaryPerProductsMapCsvToJson_js>capp/EnterpriseIntegrator</com.example.resource_._summaryPerProductsMapCsvToJson_js>
@@ -30,13 +30,13 @@
   <dependencies>
     <dependency>
       <groupId>com.example.resource</groupId>
-      <artifactId>credencialesconf_xml</artifactId>
+      <artifactId>evolutionByCategoryMapCsvToJson_js</artifactId>
       <version>1.0.0</version>
       <type>zip</type>
     </dependency>
     <dependency>
       <groupId>com.example.resource</groupId>
-      <artifactId>evolutionByCategoryMapCsvToJson_js</artifactId>
+      <artifactId>credencialesconf_xml</artifactId>
       <version>1.0.0</version>
       <type>zip</type>
     </dependency>
@@ -48,7 +48,25 @@
     </dependency>
     <dependency>
       <groupId>com.example.resource</groupId>
+      <artifactId>evolutionByProductMapCsvToJson_js</artifactId>
+      <version>1.0.0</version>
+      <type>zip</type>
+    </dependency>
+    <dependency>
+      <groupId>com.example.resource</groupId>
       <artifactId>summaryPerCategoriesMapCsvToJson_js</artifactId>
+      <version>1.0.0</version>
+      <type>zip</type>
+    </dependency>
+    <dependency>
+      <groupId>com.example.metadata</groupId>
+      <artifactId>ReportParseAPI_swagger</artifactId>
+      <version>1.0.0</version>
+      <type>yaml</type>
+    </dependency>
+    <dependency>
+      <groupId>com.example.resource</groupId>
+      <artifactId>summaryPerProductsMapCsvToJson_js</artifactId>
       <version>1.0.0</version>
       <type>zip</type>
     </dependency>
@@ -59,28 +77,10 @@
       <type>zip</type>
     </dependency>
     <dependency>
-      <groupId>com.example.resource</groupId>
-      <artifactId>evolutionByProductMapCsvToJson_js</artifactId>
-      <version>1.0.0</version>
-      <type>zip</type>
-    </dependency>
-    <dependency>
-      <groupId>com.example.resource</groupId>
-      <artifactId>summaryPerProductsMapCsvToJson_js</artifactId>
-      <version>1.0.0</version>
-      <type>zip</type>
-    </dependency>
-    <dependency>
       <groupId>com.example.api</groupId>
       <artifactId>ReportParseAPI</artifactId>
       <version>1.0.0</version>
       <type>zip</type>
-    </dependency>
-    <dependency>
-      <groupId>com.example.metadata</groupId>
-      <artifactId>ReportParseAPI_swagger</artifactId>
-      <version>1.0.0</version>
-      <type>yaml</type>
     </dependency>
   </dependencies>
   <repositories>
