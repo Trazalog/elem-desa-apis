@@ -17,17 +17,34 @@ function mapCsvToJson(mc) {
           categoriesEvolution: [],
         };
       }
-      stores[storeName].categoriesEvolution.push({
+      
+      var jsonData = {
         categoryDetail: data[headers.indexOf("Detalle de la Categoría")] ? data[headers.indexOf("Detalle de la Categoría")].replace(/"/g, '') : '',
-        invoicesQuantity : data[headers.indexOf("Facturas")],
-        presence: data[headers.indexOf("Presencia")], 
-        subtotal: data[headers.indexOf("Subtotal de la Categoría")], 
-        discount: data[headers.indexOf("Descuento de la Categoría")], 
-        taxes: data[headers.indexOf("Impuesto de la Categoría")],
-        total: data[headers.indexOf("Total de la Categoría")],
-        unitsSold: data[headers.indexOf("Unidades Vendidas")],
-        dayOfYear: data[headers.indexOf("Día del año")], 
-      });
+        invoicesQuantity : parseInt(data[headers.indexOf("Facturas")]),
+        presence: parseFloat(parseFloat(data[headers.indexOf("Presencia")]).toFixed(2)), 
+        subtotal: parseFloat(parseFloat(data[headers.indexOf("Subtotal de la Categoría")]).toFixed(2)), 
+        discount: parseFloat(parseFloat(data[headers.indexOf("Descuento de la Categoría")]).toFixed(2)), 
+        taxes: parseFloat(parseFloat(data[headers.indexOf("Impuesto de la Categoría")]).toFixed(2)),
+        total: parseFloat(parseFloat(data[headers.indexOf("Total de la Categoría")]).toFixed(2)),
+        unitsSold: parseInt(data[headers.indexOf("Unidades Vendidas")]),
+      };
+
+      if (headers.indexOf("Día del año") != -1) {
+        jsonData.day = data[headers.indexOf("Día del año")];
+      }
+      if (headers.indexOf("Semana") != -1) {
+        jsonData.week = parseInt(data[headers.indexOf("Semana")]);
+      }
+      if (headers.indexOf("Mes")  != -1) {
+        jsonData.month = parseInt(data[headers.indexOf("Mes")]);
+      }
+      if (headers.indexOf("Año") != -1) {
+        jsonData.year = parseInt(data[headers.indexOf("Año")]);
+      }
+      if (headers.indexOf("Período Comprendido")) {
+        jsonData.dateRange = data[headers.indexOf("Período Comprendido")];
+      }
+      stores[storeName].categoriesEvolution.push(jsonData);
     }
     var json = {};
     json.stores = Object.keys(stores).map(function(key) {

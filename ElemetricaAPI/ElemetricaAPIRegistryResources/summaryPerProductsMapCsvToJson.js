@@ -23,14 +23,14 @@ function mapCsvToJson(mc) {
       productsSummary[storeName].productsSummary.push({
         productCode: data[headers.indexOf("Código Interno")],
         productDescription: data[headers.indexOf("Descripción del Producto")] ? data[headers.indexOf("Descripción del Producto")].replace(/"/g, '') : '',
-        invoicesQuantity: data[headers.indexOf("Facturas")],
+        invoicesQuantity: parseInt(data[headers.indexOf("Facturas")]),
         categoryDescription : data[headers.indexOf("Descripción de la Categoría")] ? data[headers.indexOf("Descripción de la Categoría")].replace(/"/g, '') : '',
-        proportionProductInvoice: data[headers.indexOf("Presencia")], 
-        subtotalProduct: data[headers.indexOf("Subtotal del Producto")], 
-        discountProduct: data[headers.indexOf("Descuento del Producto")], 
-        taxProduct: data[headers.indexOf("Impuesto del Producto")],
-        totalProduct: data[headers.indexOf("Total del Producto")],
-        unitProduct: data[headers.indexOf("Unidades Vendidas")],
+        proportionProductInvoice: parseFloat(parseFloat(data[headers.indexOf("Presencia")]).toFixed(2)), 
+        subtotal: parseFloat(parseFloat(data[headers.indexOf("Subtotal del Producto")]).toFixed(2)), 
+        discount: parseFloat(parseFloat(data[headers.indexOf("Descuento del Producto")]).toFixed(2)), 
+        taxes: parseFloat(parseFloat(data[headers.indexOf("Impuesto del Producto")]).toFixed(2)),
+        total: parseFloat(parseFloat(data[headers.indexOf("Total del Producto")]).toFixed(2)),
+        unitsSold: parseInt(data[headers.indexOf("Unidades Vendidas")]),
       });
     }
     var json = {};
@@ -42,7 +42,9 @@ function mapCsvToJson(mc) {
 
     return true;
   } catch (error) {
-    log.info("mapCsvToJson ERROR: " + error);
+    var log = mc.getServiceLog();
+    log.info("ERROR");
+    log.info(error);
 
     return false;
   }

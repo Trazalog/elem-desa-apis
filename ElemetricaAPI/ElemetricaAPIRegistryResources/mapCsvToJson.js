@@ -48,12 +48,12 @@ function mapCsvToJson(mc) {
         productCode: data[headers.indexOf("Código Interno del Producto")],
         productDescription: data[headers.indexOf("Descripción del Producto")],
         category : data[headers.indexOf("Descripción de la Categoría")] ? data[headers.indexOf("Descripción de la Categoría")].replace(/"/g, '') : '',
-        subtotal: parseFloat(data[headers.indexOf("Subtotal")]), 
-        discount: parseFloat(data[headers.indexOf("Descuento")]), 
-        tax: parseFloat(data[headers.indexOf("Impuestos")]), 
-        total: parseFloat(data[headers.indexOf("Total")]),
+        subtotal: parseFloat(parseFloat(data[headers.indexOf("Subtotal")]).toFixed(2)), 
+        discount: parseFloat(parseFloat(data[headers.indexOf("Descuento")]).toFixed(2)), 
+        tax: parseFloat(parseFloat(data[headers.indexOf("Impuestos")]).toFixed(2)), 
+        total: parseFloat(parseFloat(data[headers.indexOf("Total")]).toFixed(2)),
         unit: parseInt(data[headers.indexOf("Unidades Vendidas")]),
-        price: parseFloat(data[headers.indexOf("Precio")]),
+        price: parseFloat(parseFloat(data[headers.indexOf("Precio")]).toFixed(2)),
       });
     }
     var json = {};

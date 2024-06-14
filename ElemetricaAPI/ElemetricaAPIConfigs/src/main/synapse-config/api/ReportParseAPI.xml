@@ -26,7 +26,7 @@
                 </args>
             </payloadFactory>
             <call>
-                <endpoint>
+                <endpoint name="invoiceDetailsLogin">
                     <http method="post" uri-template="{uri.var.login}">
                         <suspendOnFailure>
                             <initialDuration>-1</initialDuration>
@@ -58,7 +58,7 @@
                 <property expression="json-eval($.token)" name="authTokenObtenido"/>
             </log>
             <call>
-                <endpoint>
+                <endpoint name="invoiceDetailsReport">
                     <http method="get" uri-template="{uri.var.report}">
                         <suspendOnFailure>
                             <initialDuration>-1</initialDuration>
@@ -122,7 +122,7 @@
                 </args>
             </payloadFactory>
             <call>
-                <endpoint>
+                <endpoint name="productsSummaryLogin">
                     <http method="post" uri-template="{uri.var.login}">
                         <suspendOnFailure>
                             <initialDuration>-1</initialDuration>
@@ -152,7 +152,7 @@
                 <property expression="json-eval($.token)" name="authTokenObtenido"/>
             </log>
             <call>
-                <endpoint>
+                <endpoint name="productsSummaryReport">
                     <http method="get" uri-template="{uri.var.report}">
                         <suspendOnFailure>
                             <initialDuration>-1</initialDuration>
@@ -190,10 +190,10 @@
         <outSequence/>
         <faultSequence/>
     </resource>
-    <resource methods="GET" uri-template="/summaryPerCategories">
+    <resource methods="GET" uri-template="/categoriesSummary">
         <inSequence>
             <log level="custom">
-                <property name="API 3" value="/summaryPerCategories"/>
+                <property name="API 3" value="/categoriesSummary"/>
             </log>
             <log level="custom">
                 <property name="Paso 1" value="logeo y obtengo token de seguridad"/>
@@ -216,7 +216,7 @@
                 </args>
             </payloadFactory>
             <call>
-                <endpoint>
+                <endpoint name="categoriesSummaryLogin">
                     <http method="post" uri-template="{uri.var.login}">
                         <suspendOnFailure>
                             <initialDuration>-1</initialDuration>
@@ -248,7 +248,7 @@
                 <property expression="json-eval($.token)" name="authTokenObtenido"/>
             </log>
             <call>
-                <endpoint>
+                <endpoint name="categoriesSummaryReport">
                     <http method="get" uri-template="{uri.var.report}">
                         <suspendOnFailure>
                             <initialDuration>-1</initialDuration>
@@ -313,7 +313,7 @@
                 </args>
             </payloadFactory>
             <call>
-                <endpoint>
+                <endpoint name="evolutionByProductLogin">
                     <http method="post" uri-template="{uri.var.login}">
                         <suspendOnFailure>
                             <initialDuration>-1</initialDuration>
@@ -345,7 +345,7 @@
                 <property expression="json-eval($.token)" name="authTokenObtenido"/>
             </log>
             <call>
-                <endpoint>
+                <endpoint name="evolutionByProductReport">
                     <http method="get" uri-template="{uri.var.report}">
                         <suspendOnFailure>
                             <initialDuration>-1</initialDuration>
@@ -411,7 +411,7 @@
                 </args>
             </payloadFactory>
             <call>
-                <endpoint>
+                <endpoint name="evolutionByCategoryLogin">
                     <http method="post" uri-template="{uri.var.login}">
                         <suspendOnFailure>
                             <initialDuration>-1</initialDuration>
@@ -443,7 +443,7 @@
                 <property expression="json-eval($.token)" name="authTokenObtenido"/>
             </log>
             <call>
-                <endpoint>
+                <endpoint name="evolutionByCategoryReport">
                     <http method="get" uri-template="{uri.var.report}">
                         <suspendOnFailure>
                             <initialDuration>-1</initialDuration>
@@ -504,19 +504,7 @@
                     <arg evaluator="xml" expression="$ctx:passConf"/>
                 </args>
             </payloadFactory>
-            <call>
-                <endpoint>
-                    <http method="post" uri-template="{uri.var.login}">
-                        <suspendOnFailure>
-                            <initialDuration>-1</initialDuration>
-                            <progressionFactor>1</progressionFactor>
-                        </suspendOnFailure>
-                        <markForSuspension>
-                            <retriesBeforeSuspension>0</retriesBeforeSuspension>
-                        </markForSuspension>
-                    </http>
-                </endpoint>
-            </call>
+            <call/>
             <filter regex="2[0-9][0-9]" source="get-property('axis2', 'HTTP_SC')">
                 <then/>
                 <else>
@@ -536,7 +524,7 @@
                 <property expression="json-eval($.token)" name="authTokenObtenido"/>
             </log>
             <call>
-                <endpoint>
+                <endpoint name="productForecastReport">
                     <http method="get" uri-template="{uri.var.report}">
                         <suspendOnFailure>
                             <initialDuration>-1</initialDuration>
@@ -595,14 +583,14 @@
                 </args>
             </payloadFactory>
             <call>
-                <endpoint>
+                <endpoint name="categoryForecastLogin">
                     <http method="post" uri-template="{uri.var.login}">
                         <suspendOnFailure>
                             <initialDuration>-1</initialDuration>
                             <progressionFactor>1</progressionFactor>
                         </suspendOnFailure>
                         <markForSuspension>
-                            <retriesBeforeSuspension>0</retriesBeforeSuspension>
+                            <retriesBeforeSuspension>2</retriesBeforeSuspension>
                         </markForSuspension>
                     </http>
                 </endpoint>
@@ -626,18 +614,35 @@
                 <property expression="json-eval($.token)" name="authTokenObtenido"/>
             </log>
             <call>
-                <endpoint>
+                <endpoint name="categoryForecastReport">
                     <http method="get" uri-template="{uri.var.report}">
+                        <timeout>
+                            <duration>1500000</duration>
+                        </timeout>
                         <suspendOnFailure>
-                            <initialDuration>-1</initialDuration>
+                            <errorCodes>-1</errorCodes>
+                            <initialDuration>0</initialDuration>
                             <progressionFactor>1</progressionFactor>
+                            <maximumDuration>1500000</maximumDuration>
                         </suspendOnFailure>
                         <markForSuspension>
-                            <retriesBeforeSuspension>0</retriesBeforeSuspension>
+                            <errorCodes>-1</errorCodes>
+                            <retriesBeforeSuspension>2</retriesBeforeSuspension>
                         </markForSuspension>
                     </http>
                 </endpoint>
             </call>
+            <filter regex="2[0-9][0-9]" source="get-property('axis2', 'HTTP_SC')">
+                <then/>
+                <else>
+                    <header name="Accept" scope="transport" value="application/json"/>
+                    <sequence key="faultSequence"/>
+                </else>
+            </filter>
+            <log level="custom">
+                <property name="Paso 3" value="Genero json output"/>
+                <property name="Donde" value="Payloadfactory que generara la json output"/>
+            </log>
             <property name="messageType" scope="axis2" type="STRING" value="application/json"/>
             <payloadFactory description="imgpayload" media-type="json">
                 <format>{"categoryForecast":"$1"}</format>
