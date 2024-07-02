@@ -6,7 +6,7 @@ function mapCsvToJson(mc) {
     lines.splice(0, 3); // corto las primeras 3 lineas del CSV, que no son datos
     var headers = lines[0].split(","); // guardo la primera linea del CSV, que son los headers
     var invoices = {};
-
+	
     // iterate over the CSV data
     for (var i = 1; i < lines.length; i++) {
       var data = lines[i].split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/); // split the CSV row into data
@@ -24,25 +24,31 @@ function mapCsvToJson(mc) {
           clientName: data[headers.indexOf("Nombre del Cliente")],
           clientId: data[headers.indexOf("Cédula del Cliente")],
           diners: parseInt(data[headers.indexOf("Comensales")]),
-          othersTags: {
-            Tipoorden: data[headers.indexOf("Tipoorden")] ? data[headers.indexOf("Tipoorden")].replace(/"/g, '') : '',
-          },
-          waiterTags: [
-            {
-              name : "Mesonero",
-              value : data[headers.indexOf("Mesonero")] ? data[headers.indexOf("Mesonero")] : '',
-            },
-            {
-              name : "Area",
-              value : data[headers.indexOf("Area")] ? data[headers.indexOf("Area")] : '',
-            },
-            {
-              name : "Turno",
-              value : data[headers.indexOf("Turno")] ? data[headers.indexOf("Turno")]: '',
-            }
-          ],
+          othersTags: [],
+          // othersTags: {
+			    //   name : "Tipoorden",
+          //   value: data[headers.indexOf("Tipoorden")] ? data[headers.indexOf("Tipoorden")].replace(/"/g, '') : '',
+          // },
+          // waiterTags: [
+          //   {
+          //     name : "Mesonero",
+          //     value : data[headers.indexOf("Mesonero")] ? data[headers.indexOf("Mesonero")] : '',
+          //   },
+          //   {
+          //     name : "Area",
+          //     value : data[headers.indexOf("Area")] ? data[headers.indexOf("Area")] : '',
+          //   },
+          //   {
+          //     name : "Turno",
+          //     value : data[headers.indexOf("Turno")] ? data[headers.indexOf("Turno")]: '',
+          //   }
+          // ],
     invoiceDetails: [],
         };
+        for(var j = 11; j < headers.length - 7; j++){
+          var tag = {name: headers[j], value: data[j] ? data[j].replace(/"/g, '') : ''};
+          invoices[invoiceId].othersTags.push(tag);
+        }
       }
       invoices[invoiceId].invoiceDetails.push({
         productCode: data[headers.indexOf("Código Interno del Producto")],
